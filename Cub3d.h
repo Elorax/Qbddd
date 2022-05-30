@@ -1,5 +1,14 @@
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
+/*   Updated: 2022/05/30 16:44:07 by abiersoh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -35,15 +44,23 @@ typedef struct s_data
 }	t_data;
 
 int	read_line(char *line, t_data *data);
-int	read_color(char *line);
+int	read_color(char *line, t_data *data);
+void	free_data(t_data *data);
 char	*ft_strstr(const char *str, const char *tofind);
 int	is_8bits_int(char *line);
 char	*ft_remove_newline_space(char *line);
 char	*ft_remove_newline(char *line);
 int	is_line_valid(char *line, t_data *data);
 int	check_around_zero(char **map, int i, int j);
-int	check_around_space(char **map, int i, int j);
 int	check_map(char **map);
-
+void	ft_freesplit(char **s);
+int		countchar(char *line, char c);
+char	**formatting_split(char *line, char sep, char *trim);
+void	init_data(t_data *data);
+int		is_arg_valid(int ac, char **av);
+void	read_map_parameters(t_data *data);
+void	count_map_size(t_data *data);
+void	read_map(t_data *data, char *path);
+void	print_data(t_data data);
 
 #endif

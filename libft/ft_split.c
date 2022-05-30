@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 12:37:57 by abiersoh          #+#    #+#             */
-/*   Updated: 2021/11/22 12:55:17 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:08:58 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*ft_strndup(char const *s, int n)
 	return (dest);
 }
 
-void	ft_freesplit(char **s, int i)
+static void	ft_freesplit(char **s, int i)
 {
 	while (--i >= 0)
 		free(s[i]);
