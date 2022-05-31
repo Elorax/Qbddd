@@ -7,6 +7,7 @@ SRCS		=	main.c								\
 				src/map/read_map.c					\
 				src/map/split.c						\
 				src/map/utils.c						\
+				src/init_images.c					\
 				gnl/get_next_line.c					\
 				gnl/get_next_line_utils.c			\
 
@@ -19,12 +20,15 @@ CFLAGS		=	-Wall -Wextra -Werror
 NAME		=	Cube3d
 
 %.o: %.c
-			$(CC) $(CFLAGS) -c $< -o $@
+			$(CC) $(CFLAGS) -I /usr/include -Imlx_linux -c $< -o $@
 
+
+LINUX		= -I /usr/include -L /usr/lib -L mlx_linux -I mlx_linux -lXext -l X11 -lm -lz
 
 $(NAME):		$(OBJS)
+					make -C minilibx/
 					make -C libft/
-					$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME)
+					$(CC) $(CFLAGS) $(OBJS) minilibx/libmlx_Linux.a libft/libft.a $(LINUX) -o $(NAME)
 
 				
 

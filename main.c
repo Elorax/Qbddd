@@ -6,11 +6,12 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:25:01 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/05/30 18:32:19 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/05/31 04:56:29 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
+#include <signal.h>
 
 int	main(int ac, char **av)
 {
@@ -30,7 +31,18 @@ int	main(int ac, char **av)
 	if (check_map(data.map))
 		printf("Map safe, skip voting\n");
 	else
-		printf("This map is sus\n");
+		return (free_data(&data), printf("This map is sus\n"), 0);
+	data.mlx = mlx_init();
+	if (!data.mlx)
+		return (free_data(&data), printf("mlx init failed\n"), 0);
+	if (!init_images(&data, data.img))
+		return (free_data(&data), printf("img not loaded\n"), 0);
+	data.win = mlx_new_window(data.mlx, 600, 800, "OMG OMG OMG OMG");
+	if (!data.win)
+		return (free_data(&data), printf("window creation failed\n"), 0);
+	mlx_put_image_to_window(data.mlx, data.win, data.img[0].img, 0, 0);
+	signal(SIGINT, SIG_IGN);
+	mlx_loop(data.mlx);
 	free_data(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:05:57 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/05/30 18:33:01 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/05/31 02:15:52 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ void	free_data(t_data *data)
 	free(data->path_south);
 	free(data->path_east);
 	free(data->path_west);
+	free(data->img[0].img);
+	free(data->img[1].img);
+	free(data->img[2].img);
+	free(data->img[3].img);
 	ft_freesplit(data->map);
+	free(data->mlx);
 	return ;
 }
 
@@ -49,4 +54,9 @@ void	init_data(t_data *data)
 	data->Fcolor = COLOR_UNSET;
 	data->Ccolor = COLOR_UNSET;
 	data->nb_param = 0;
+	data->img[0].img = NULL;
+	data->img[1].img = NULL;
+	data->img[2].img = NULL;
+	data->img[3].img = NULL;
+	data->mlx = NULL;
 }

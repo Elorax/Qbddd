@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/05/30 16:44:07 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/05/31 02:20:24 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 # include <stdio.h>
 # include <stdlib.h>
-//# include "mlx/mlx.h"
+# include "minilibx/mlx.h"
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -26,6 +26,19 @@
 # define ERROR_BAD_COLOR -2
 # define ERROR_FUCK_MALLOC -3
 # define ERROR_PARAMETERS  -4
+
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
+
+
+typedef struct s_image
+{
+	void	*img;
+	int		height;
+	int		width;
+}	t_image;
 
 typedef struct s_data
 {
@@ -41,18 +54,22 @@ typedef struct s_data
 	int		begin_map;
 	int		end_map;
 	int		map_size;
+	void	*mlx;
+	void	*win;
+	t_image	img[4];
 }	t_data;
 
-int	read_line(char *line, t_data *data);
-int	read_color(char *line, t_data *data);
+int		init_images(t_data *data, t_image *img);
+int		read_line(char *line, t_data *data);
+int		read_color(char *line, t_data *data);
 void	free_data(t_data *data);
 char	*ft_strstr(const char *str, const char *tofind);
-int	is_8bits_int(char *line);
+int		is_8bits_int(char *line);
 char	*ft_remove_newline_space(char *line);
 char	*ft_remove_newline(char *line);
-int	is_line_valid(char *line, t_data *data);
-int	check_around_zero(char **map, int i, int j);
-int	check_map(char **map);
+int		is_line_valid(char *line, t_data *data);
+int		check_around_zero(char **map, int i, int j);
+int		check_map(char **map);
 void	ft_freesplit(char **s);
 int		countchar(char *line, char c);
 char	**formatting_split(char *line, char sep, char *trim);
