@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/01 16:02:29 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:08:14 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "minilibx/mlx.h"
+# include "minilibx/mlx_int.h"
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -32,13 +33,16 @@
 # define EAST 2
 # define WEST 3
 
+typedef int t_pixel;
 
 typedef struct s_image
 {
 	void	*img;
 	int		height;
 	int		width;
+	t_pixel	**pix;
 }	t_image;
+
 
 typedef struct s_data
 {
@@ -48,8 +52,8 @@ typedef struct s_data
 	char	*path_south;
 	char	*path_east;
 	char	*path_west;
-	int		Fcolor;
-	int		Ccolor;
+	t_pixel	Fcolor;
+	t_pixel	Ccolor;
 	int		nb_param;
 	int		begin_map;
 	int		end_map;
@@ -58,6 +62,20 @@ typedef struct s_data
 	void	*win;
 	t_image	img[4];
 }	t_data;
+
+# define R_KEY 114
+# define W_KEY 119
+# define A_KEY 97
+# define Z_KEY 122
+# define P_KEY 112
+# define Q_KEY 113
+# define S_KEY 115
+# define D_KEY 100
+# define ESCAPE_KEY 65307
+# define UP_KEY 65362
+# define LEFT_KEY 65361
+# define RIGHT_KEY 65363
+# define DOWN_KEY 65364
 
 int		init_images(t_data *data, t_image *img);
 int		read_line(char *line, t_data *data);
@@ -79,5 +97,11 @@ void	read_map_parameters(t_data *data);
 void	count_map_size(t_data *data);
 void	read_map(t_data *data, char *path);
 void	print_data(t_data data);
+int	exit_hook(t_data *data);
+int	key_hook(int keycode, t_data *data);
+void	manage_movement(t_data *data, int keycode);
+void	ft_mlx_close_game(t_data *data);
+void	ft_mlx_close_croix_rouge_de_ses_morts(t_data *data);
+
 
 #endif

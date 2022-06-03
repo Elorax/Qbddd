@@ -10,6 +10,7 @@ SRCS		=	main.c								\
 				src/init_images.c					\
 				gnl/get_next_line.c					\
 				gnl/get_next_line_utils.c			\
+				src/key_hook.c
 
 OBJS		=	$(SRCS:.c=.o)
 

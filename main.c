@@ -6,12 +6,11 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:25:01 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/05/31 04:56:29 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:59:11 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
-#include <signal.h>
 
 int	main(int ac, char **av)
 {
@@ -41,7 +40,8 @@ int	main(int ac, char **av)
 	if (!data.win)
 		return (free_data(&data), printf("window creation failed\n"), 0);
 	mlx_put_image_to_window(data.mlx, data.win, data.img[0].img, 0, 0);
-	signal(SIGINT, SIG_IGN);
+	mlx_key_hook(data.win, key_hook, &data);
+	mlx_hook(data.win, 17, 0, exit_hook, &data);
 	mlx_loop(data.mlx);
 	free_data(&data);
 	return (0);
