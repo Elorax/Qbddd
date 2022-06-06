@@ -1,7 +1,7 @@
-NO ./img/Sol1.xpm
-SO ./img/Sol1.xpm
-EA ./img/Sol1.xpm
-WE ./img/Sol1.xpm
+NO ./text/texture.xpm
+SO ./text/texture.xpm
+EA ./text/texture.xpm
+WE ./text/texture.xpm
 
 F 220,100,1
 C 220,0,30

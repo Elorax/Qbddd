@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/01 17:08:14 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/06 20:34:37 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,28 @@ typedef int t_pixel;
 typedef struct s_image
 {
 	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
 	int		height;
 	int		width;
 	t_pixel	**pix;
 }	t_image;
 
+typedef struct s_player
+{
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
 
+	//not sure
+	double	time;
+	double	old_time;
+}	t_player;
 typedef struct s_data
 {
 	int	fd;
@@ -76,6 +92,16 @@ typedef struct s_data
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 # define DOWN_KEY 65364
+# define W_HEIGHT	600
+# define W_LENGTH	800
+
+void	create_big(t_data *data);
+double	double_abs(double d);
+void	draw_line(t_image *img, t_data *data, double wallX, int x, int upperWall, int lowerWall, t_image *texture);
+void	pixel_put(t_image *img, int x, int y, int color);
+void	build_image(t_image *img, t_data *data, t_player *player);
+int	get_color(t_image *img, int x, int y);
+
 
 int		init_images(t_data *data, t_image *img);
 int		read_line(char *line, t_data *data);

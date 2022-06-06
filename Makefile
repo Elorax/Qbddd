@@ -1,4 +1,6 @@
 SRCS		=	main.c								\
+				gnl/get_next_line.c					\
+				gnl/get_next_line_utils.c			\
 				src/map/check_args.c				\
 				src/map/check_line.c				\
 				src/map/data.c						\
@@ -8,9 +10,9 @@ SRCS		=	main.c								\
 				src/map/split.c						\
 				src/map/utils.c						\
 				src/init_images.c					\
-				gnl/get_next_line.c					\
-				gnl/get_next_line_utils.c			\
-				src/key_hook.c
+				src/key_hook.c						\
+				src/test_get_addr.c					\
+				src/build_image.c
 
 OBJS		=	$(SRCS:.c=.o)
 
