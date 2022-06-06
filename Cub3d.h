@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/06 20:34:37 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/07 01:06:34 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,13 @@ void	manage_movement(t_data *data, int keycode);
 void	ft_mlx_close_game(t_data *data);
 void	ft_mlx_close_croix_rouge_de_ses_morts(t_data *data);
 
+
+
+
+
+//temporaire
+
+
+void	osef(t_image *img, t_data *data);
 
 #endif

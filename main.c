@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:25:01 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/06 21:16:28 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/07 00:28:38 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int ac, char **av)
 		return (free_data(&data), printf("window creation failed\n"), 0);
 	mlx_put_image_to_window(data.mlx, data.win, data.img[0].img, 0, 0);
 	create_big(&data);
+//	osef(&data.img[0], &data);
 	mlx_key_hook(data.win, key_hook, &data);
 	mlx_hook(data.win, 17, 0, exit_hook, &data);
 	mlx_loop(data.mlx);
