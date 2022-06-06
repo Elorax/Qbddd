@@ -37,6 +37,7 @@ void	create_big(t_data *data)
 	img.width = W_LENGTH;
 	img.img = mlx_new_image(data->mlx, W_LENGTH, W_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
+	printf("appel de build_image\n");
 	build_image(&img, data, &player);
 	mlx_put_image_to_window(data->mlx, data->win, img.img, 0, 0);
 }

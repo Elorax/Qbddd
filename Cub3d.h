@@ -60,6 +60,7 @@ typedef struct s_player
 	double	time;
 	double	old_time;
 }	t_player;
+
 typedef struct s_data
 {
 	int	fd;
