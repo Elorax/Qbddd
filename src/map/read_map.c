@@ -18,8 +18,8 @@ void	read_player(t_player *player, int i, int j, char **map)
 	player->posY = i;
 	player->dirX = (map[i][j] == 'E') - (map[i][j] == 'W');
 	player->dirY = (map[i][j] == 'S') - (map[i][j] == 'N');
-	player->planeX = - player->dirY;
-	player->planeY = player->dirX;
+	player->planeX = - player->dirY * tan(FOV * PI/180);
+	player->planeY = player->dirX * tan(FOV * PI/180.0);
 	printf("X, Y, dirX, dirY, planeX, planeY\n%f, %f, %f, %f, %f, %f\n", player->posX, player->posY, player->dirX, player->dirY, player->planeX, player->planeY);
 }
 

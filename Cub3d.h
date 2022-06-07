@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/07 01:06:34 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:32:24 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@
 # define EAST 2
 # define WEST 3
 
+# define MOVESPEED 5.0
+# define ROTSPEED 3.0
+# ifndef FOV
+#  define FOV 60.0
+# endif
+# define PI 3.1415
 typedef int t_pixel;
 
 typedef struct s_image
