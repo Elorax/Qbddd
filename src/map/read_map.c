@@ -12,7 +12,18 @@
 
 #include "../../Cub3d.h"
 
-int	check_map(char **map)
+void	read_player(t_player *player, int i, int j, char **map)
+{
+	player->posX = j;
+	player->posY = i;
+	player->dirX = (map[i][j] == 'E') - (map[i][j] == 'W');
+	player->dirY = (map[i][j] == 'S') - (map[i][j] == 'N');
+	player->planeX = - player->dirY;
+	player->planeY = player->dirX;
+	printf("X, Y, dirX, dirY, planeX, planeY\n%f, %f, %f, %f, %f, %f\n", player->posX, player->posY, player->dirX, player->dirY, player->planeX, player->planeY);
+}
+
+int	check_map(char **map, t_data *data)
 {
 	int	nb_player;
 	int	i;
@@ -30,7 +41,11 @@ int	check_map(char **map)
 					return (FALSE);
 			if (!ft_strchr("0NSEW1 ", map[i][j]))
 				return (FALSE);
-			nb_player += !!ft_strchr("NSEW", map[i][j]);
+			if (ft_strchr("NSEW", map[i][j]))
+			{
+				nb_player++;
+				read_player(data->player, i, j, map);
+			}
 		}
 	}
 	return (nb_player == 1);

@@ -15,7 +15,9 @@
 int	main(int ac, char **av)
 {
 	t_data	data;
+	t_player	player;
 
+	data.player = &player;
 	if (is_arg_valid(ac, av) == FALSE)
 		return (EXIT_FAILURE);
 	init_data(&data);
@@ -27,7 +29,7 @@ int	main(int ac, char **av)
 	read_map(&data, av[1]);
 	print_data(data);
 	close(data.fd);
-	if (check_map(data.map))
+	if (check_map(data.map, &data))
 		printf("Map safe, skip voting\n");
 	else
 		return (free_data(&data), printf("This map is sus\n"), 0);

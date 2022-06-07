@@ -78,6 +78,7 @@ typedef struct s_data
 	void	*mlx;
 	void	*win;
 	t_image	img[4];
+	t_player	*player;
 }	t_data;
 
 # define R_KEY 114
@@ -114,7 +115,7 @@ char	*ft_remove_newline_space(char *line);
 char	*ft_remove_newline(char *line);
 int		is_line_valid(char *line, t_data *data);
 int		check_around_zero(char **map, int i, int j);
-int		check_map(char **map);
+int		check_map(char **map, t_data *data);
 void	ft_freesplit(char **s);
 int		countchar(char *line, char c);
 char	**formatting_split(char *line, char sep, char *trim);
