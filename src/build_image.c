@@ -176,9 +176,9 @@ void	draw_line(t_image *img, t_data *data, double wallX, int x, int upperWall, i
 	while (y < upperWall)
 	{
 //		printf("%#x ??\n", data->Ccolor);
-		//pixel_put(img, x, y, data->Ccolor);
+		pixel_put(img, x, y, data->Ccolor);
 
-		pixel_put(img, x, y, 0x000000FF);
+//		pixel_put(img, x, y, 0x000000FF);
 	//	pixel_put(img, x, y, 0x00FF0000);
 		y++;
 	}

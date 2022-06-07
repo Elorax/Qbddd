@@ -18,26 +18,155 @@ int	exit_hook(t_data *data)
 	return (0);
 }
 
-
-int	key_hook(int keycode, t_data *data)
-{
-	if (keycode == ESCAPE_KEY)
-		ft_mlx_close_game(data);
-	else if (keycode == W_KEY || keycode == A_KEY || keycode == S_KEY
-		|| keycode == D_KEY || keycode == UP_KEY || keycode == DOWN_KEY
-		|| keycode == RIGHT_KEY || keycode == LEFT_KEY
-		|| keycode == Z_KEY || keycode == Q_KEY)
-		manage_movement(data, keycode);
-	return (keycode);
-}
-
+/*
 void	manage_movement(t_data *data, int keycode)
 {
 	(void) data;
+	(void) keycode;
 	printf("keycode %d\n", keycode);
+	if (keycode == UP_KEY || keycode == W_KEY)
+	{
+		if (data->map[(int)(data->player->posY)][(int)(data->player->posX + data->player->dirX * MOVESPEED/10)] != '1')
+			data->player->posX += data->player->dirX * MOVESPEED / 10;
+		if (data->map[(int)(data->player->posY + data->player->dirY * MOVESPEED/10)][(int)(data->player->posX)] != '1')
+			data->player->posY += data->player->dirY * MOVESPEED / 10;
+		create_big(data);
+	}
+	else if (keycode == DOWN_KEY || keycode == S_KEY)
+	{
+		data->player->posX -= data->player->dirX * MOVESPEED / 10;
+		data->player->posY -= data->player->dirY * MOVESPEED / 10;
+		create_big(data);
+	}
+	else if (keycode == A_KEY)
+	{
+		data->player->posX -= data->player->dirY * MOVESPEED / 10;
+		data->player->posY += data->player->dirX * MOVESPEED / 10;
+		create_big(data);
+	}
+	else if (keycode == D_KEY)
+	{
+		data->player->posX += data->player->dirY * MOVESPEED / 10;
+		data->player->posY -= data->player->dirX * MOVESPEED / 10;
+		create_big(data);
+	}
+	else if (keycode == LEFT_KEY)
+	{
+		double tmp = data->player->dirX;
+		data->player->dirX = data->player->dirX * cos(ROTSPEED) - data->player->dirY * sin(ROTSPEED);
+		data->player->dirY = tmp * sin(ROTSPEED) + data->player->dirY * cos(ROTSPEED);
+		tmp = data->player->planeX;
+		data->player->planeX = tmp * cos(ROTSPEED) - data->player->planeY * sin(ROTSPEED);
+		data->player->planeY = tmp * sin(ROTSPEED) + data->player->planeY * cos(ROTSPEED);
+		create_big(data);
+	}
+	else if (keycode == RIGHT_KEY)
+	{
+		double tmp = data->player->dirX;
+		data->player->dirX = data->player->dirX * cos(-ROTSPEED) - data->player->dirY * sin(-ROTSPEED);
+		data->player->dirY = tmp * sin(-ROTSPEED) + data->player->dirY * cos(-ROTSPEED);
+		tmp = data->player->planeX;
+		data->player->planeX = tmp * cos(-ROTSPEED) - data->player->planeY * sin(-ROTSPEED);
+		data->player->planeY = tmp * sin(-ROTSPEED) + data->player->planeY * cos(-ROTSPEED);
+		create_big(data);
+	}
 	return ;
+}*/
+
+int	handle_no_event(t_data *data)
+{
+	printf("Je me lance omg\n");
+	if (data->move->move_y == -1)
+	{
+		if (data->map[(int)(data->player->posY)][(int)(data->player->posX + data->player->dirX * MOVESPEED/100)] != '1')
+			data->player->posX += data->player->dirX * MOVESPEED / 100;
+		if (data->map[(int)(data->player->posY + data->player->dirY * MOVESPEED/100)][(int)(data->player->posX)] != '1')
+			data->player->posY += data->player->dirY * MOVESPEED / 100;
+	}
+	else if (data->move->move_y == 1)
+	{
+		if (data->map[(int)(data->player->posY)][(int)(data->player->posX - data->player->dirX * MOVESPEED/100)] != '1')
+			data->player->posX -= data->player->dirX * MOVESPEED / 100;
+		if (data->map[(int)(data->player->posY - data->player->dirY * MOVESPEED/100)][(int)(data->player->posX)] != '1')
+			data->player->posY -= data->player->dirY * MOVESPEED / 100;
+	}
+	if (data->move->move_x == -1)
+	{
+		if (data->map[(int)(data->player->posY)][(int)(data->player->posX - data->player->dirY * MOVESPEED/100)] != '1')
+			data->player->posX -= data->player->dirY * MOVESPEED / 100;
+		if (data->map[(int)(data->player->posY + data->player->dirX * MOVESPEED/100)][(int)(data->player->posX)] != '1')
+			data->player->posY += data->player->dirX * MOVESPEED / 100;
+	}
+	else if (data->move->move_x == 1)
+	{
+		if (data->map[(int)(data->player->posY)][(int)(data->player->posX + data->player->dirY * MOVESPEED/100)] != '1')
+			data->player->posX += data->player->dirY * MOVESPEED / 100;
+		if (data->map[(int)(data->player->posY - data->player->dirX * MOVESPEED/100)][(int)(data->player->posX)] != '1')
+			data->player->posY -= data->player->dirX * MOVESPEED / 100;
+	}
+	if (data->move->rotate == -1)
+	{
+		double tmp = data->player->dirX;
+		data->player->dirX = data->player->dirX * cos(ROTSPEED/10) - data->player->dirY * sin(ROTSPEED/10);
+		data->player->dirY = tmp * sin(ROTSPEED/10) + data->player->dirY * cos(ROTSPEED/10);
+		tmp = data->player->planeX;
+		data->player->planeX = tmp * cos(ROTSPEED/10) - data->player->planeY * sin(ROTSPEED/10);
+		data->player->planeY = tmp * sin(ROTSPEED/10) + data->player->planeY * cos(ROTSPEED/10);
+	}
+	else if (data->move->rotate == 1)
+	{
+		double tmp = data->player->dirX;
+		data->player->dirX = data->player->dirX * cos(-ROTSPEED/10) - data->player->dirY * sin(-ROTSPEED/10);
+		data->player->dirY = tmp * sin(-ROTSPEED/10) + data->player->dirY * cos(-ROTSPEED/10);
+		tmp = data->player->planeX;
+		data->player->planeX = tmp * cos(-ROTSPEED/10) - data->player->planeY * sin(-ROTSPEED/10);
+		data->player->planeY = tmp * sin(-ROTSPEED/10) + data->player->planeY * cos(-ROTSPEED/10);
+	}
+	create_big(data);
+	return (0);
+
 }
 
+int	key_press(int keycode, t_data *data)
+{
+	printf("%d pressed\n", keycode);
+	
+	if (keycode == W_KEY || keycode == UP_KEY)
+		data->move->move_y = -1;
+	else if (keycode == S_KEY || keycode == DOWN_KEY)
+		data->move->move_y = 1;
+	if (keycode == A_KEY)
+		data->move->move_x = -1;
+	else if (keycode == D_KEY)
+		data->move->move_x = 1;
+	if (keycode == LEFT_KEY)
+		data->move->rotate = -1;
+	else if (keycode == RIGHT_KEY)
+		data->move->rotate = 1;
+	printf("%d %d %d\n", data->move->move_x, data->move->move_y, data->move->rotate);
+
+	return (keycode);
+}
+
+int	key_release(int keycode, t_data *data)
+{
+		printf("%d released\n", keycode);
+	if (keycode == ESCAPE_KEY)
+		ft_mlx_close_game(data);
+	if (keycode == W_KEY || keycode == UP_KEY)
+		data->move->move_y = 0;
+	else if (keycode == S_KEY || keycode == DOWN_KEY)
+		data->move->move_y = 0;
+	if (keycode == A_KEY)
+		data->move->move_x = 0;
+	else if (keycode == D_KEY)
+		data->move->move_x = 0;
+	if (keycode == LEFT_KEY)
+		data->move->rotate = 0;
+	else if (keycode == RIGHT_KEY)
+		data->move->rotate = 0;
+	return (keycode);
+}
 
 void	ft_mlx_close_game(t_data *data)
 {

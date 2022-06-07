@@ -31,3 +31,16 @@ int	init_images(t_data *data, t_image *img)
 
 	return (img[0].img && img[1].img && img[2].img && img[3].img);
 }
+
+
+void	init_frames(t_data *data)
+{
+	data->render[0].height = W_HEIGHT;
+	data->render[0].width = W_LENGTH;
+	data->render[0].img = mlx_new_image(data->mlx, W_LENGTH, W_HEIGHT);
+	data->render[0].addr = mlx_get_data_addr(data->render[0].img, &data->render[0].bpp, &data->render[0].line_length, &data->render[0].endian);
+	data->render[1].height = W_HEIGHT;
+	data->render[1].width = W_LENGTH;
+	data->render[1].img = mlx_new_image(data->mlx, W_LENGTH, W_HEIGHT);
+	data->render[1].addr = mlx_get_data_addr(data->render[1].img, &data->render[1].bpp, &data->render[1].line_length, &data->render[1].endian);
+}

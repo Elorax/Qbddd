@@ -30,15 +30,10 @@ int	get_color(t_image *img, int x, int y)
 
 void	create_big(t_data *data)
 {
-	t_image img;
-
-	img.height = W_HEIGHT;
-	img.width = W_LENGTH;
-	img.img = mlx_new_image(data->mlx, W_LENGTH, W_HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
-	printf("appel de build_image\n");
-	build_image(&img, data, data->player);
-	mlx_put_image_to_window(data->mlx, data->win, img.img, 0, 0);
+	static int nb = 0;
+	printf("building image %d\n", nb++);
+	build_image(&data->render[data->frame%2], data, data->player);
+	mlx_put_image_to_window(data->mlx, data->win, data->render[data->frame++%2].img, 0, 0);
 }
 
 void	osef(t_image *img, t_data *data)

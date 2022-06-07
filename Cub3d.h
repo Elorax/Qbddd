@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/07 13:32:24 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/07 23:13:03 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@
 # define WEST 3
 
 # define MOVESPEED 5.0
-# define ROTSPEED 3.0
 # ifndef FOV
-#  define FOV 60.0
+#  define FOV 300.0
 # endif
 # define PI 3.1415
+# define ROTSPEED PI / 18.0
 typedef int t_pixel;
 
 typedef struct s_image
@@ -52,6 +52,13 @@ typedef struct s_image
 	int		width;
 	t_pixel	**pix;
 }	t_image;
+
+typedef struct s_movements
+{
+	int	move_x;
+	int	move_y;
+	int	rotate;
+}	t_movements;
 
 typedef struct s_player
 {
@@ -84,7 +91,10 @@ typedef struct s_data
 	void	*mlx;
 	void	*win;
 	t_image	img[4];
+	t_image	render[2];
+	int		frame;
 	t_player	*player;
+	t_movements *move;
 }	t_data;
 
 # define R_KEY 114
@@ -103,6 +113,7 @@ typedef struct s_data
 # define W_HEIGHT	600
 # define W_LENGTH	800
 
+void	init_frames(t_data *data);
 void	create_big(t_data *data);
 double	double_abs(double d);
 void	draw_line(t_image *img, t_data *data, double wallX, int x, int upperWall, int lowerWall, t_image *texture);
@@ -110,6 +121,7 @@ void	pixel_put(t_image *img, int x, int y, int color);
 void	build_image(t_image *img, t_data *data, t_player *player);
 int	get_color(t_image *img, int x, int y);
 
+int	handle_no_event(t_data *data);
 
 int		init_images(t_data *data, t_image *img);
 int		read_line(char *line, t_data *data);
@@ -137,6 +149,9 @@ void	manage_movement(t_data *data, int keycode);
 void	ft_mlx_close_game(t_data *data);
 void	ft_mlx_close_croix_rouge_de_ses_morts(t_data *data);
 
+
+int	key_press(int keycode, t_data *data);
+int	key_release(int keycode, t_data *data);
 
 
 

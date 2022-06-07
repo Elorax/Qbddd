@@ -18,7 +18,7 @@ OBJS		=	$(SRCS:.c=.o)
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -O3
 
 NAME		=	Cube3d
 
@@ -36,7 +36,6 @@ $(NAME):		$(OBJS)
 				
 
 all:			$(NAME)
-
 
 clean:
 				rm -rf $(OBJS)
