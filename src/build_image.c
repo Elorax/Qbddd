@@ -34,6 +34,8 @@ void	build_image(t_image *img, t_data *data, t_player *player)
 		casting_ray(&ray, data);
 		ray.dist_perp_wall = calcul_perpendiculary_dist(ray);
 		calcul_wall_drawing(&ray, player);
+		if (ray.facing > 3)
+		ray.facing = 4;
 		draw_line(img, data, ray.x_pix_wall, x, ray.upper_wall, ray.lower_wall, &data->img[ray.facing]);
 	}
 }

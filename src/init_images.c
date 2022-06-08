@@ -29,7 +29,11 @@ int	init_images(t_data *data, t_image *img)
 			&img[3].width, &img[3].height);
 	img[3].addr = mlx_get_data_addr(img[3].img, &img[3].bpp, &img[3].line_length, &img[3].endian);
 
-	return (img[0].img && img[1].img && img[2].img && img[3].img);
+	img[4].img = mlx_xpm_file_to_image(data->mlx, "./text/message.xpm",
+			&img[4].width, &img[4].height);
+	img[4].addr = mlx_get_data_addr(img[4].img, &img[4].bpp, &img[4].line_length, &img[4].endian);
+
+	return (img[0].img && img[1].img && img[2].img && img[3].img && img[4].img);
 }
 
 

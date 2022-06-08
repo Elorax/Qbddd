@@ -78,12 +78,17 @@ void	casting_ray(t_raycasting *ray, t_data *data)
 		}
 		if (data->map[ray->map_y][ray->map_x] == '1')
 			ray->has_hit = 1;
+		if (data->map[ray->map_y][ray->map_x] == '2')
+		{
+			ray->has_hit = 1;
+			ray->facing += MESSAGE;
+		}
 	}
 }
 
 double	calcul_perpendiculary_dist(t_raycasting ray)
 {
-	if (ray.facing == EAST || ray.facing == WEST)
+	if (ray.facing % 4 == EAST || ray.facing % 4 == WEST)
 		return (ray.side_dist_x - ray.diff_dist_x);
 	return (ray.side_dist_y - ray.diff_dist_y);
 }
@@ -95,11 +100,17 @@ void	calcul_wall_drawing(t_raycasting *ray, t_player *player)
 		line_height = 1000000;
 	else
 		line_height = (int) (W_HEIGHT / ray->dist_perp_wall);
-	ray->upper_wall = W_HEIGHT / 2 - line_height * (28.0 * player->zoom/FOV) ;	//+/- offset
-	ray->lower_wall = W_HEIGHT / 2 + line_height * (28.0 * player->zoom/FOV);	//+/- offset
-	if (ray->facing == EAST || ray->facing == WEST)
+	ray->upper_wall = W_HEIGHT / 2 - (1 / (1 + player->height)) * line_height * (28.0 * player->zoom/FOV) ;	//+/- offset
+	ray->lower_wall = W_HEIGHT / 2 + ((2 - (1 / (1 + player->height)))) * line_height * (28.0 * player->zoom/FOV);	//+/- offset
+
+	
+	if (ray->facing % 4 == EAST || ray->facing % 4 == WEST)
 		ray->x_pix_wall = (double) player->posY + ray->dist_perp_wall * ray->ray_dir_y;
 	else
 		ray->x_pix_wall = (double) player->posX + ray->dist_perp_wall * ray->ray_dir_x;	
 	ray->x_pix_wall -= floor(ray->x_pix_wall);
+
+		//Bon ca c'est de la giga rustine qui fait degueuler mais osef
+	if (!(ray->facing % 2))
+		ray->x_pix_wall = 1 - ray->x_pix_wall;
 }

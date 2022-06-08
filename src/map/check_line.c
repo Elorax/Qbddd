@@ -79,14 +79,14 @@ int	check_around_zero(char **map, int i, int j)
 		return (FALSE);
 	if (ft_strlen(map[i + 1]) < (size_t)(j + 2))
 		return (FALSE);
-	if (!ft_strchr("10NSEW", map[i - 1][j - 1])
-		|| !ft_strchr("10NSEW", map[i - 1][j])
-		|| !ft_strchr("10NSEW", map[i - 1][j + 1])
-		|| !ft_strchr("10NSEW", map[i][j - 1])
-		|| !ft_strchr("10NSEW", map[i][j + 1])
-		|| !ft_strchr("10NSEW", map[i + 1][j - 1])
-		|| !ft_strchr("10NSEW", map[i + 1][j])
-		|| !ft_strchr("10NSEW", map[i + 1][j + 1]))
+	if (!ft_strchr("210NSEW", map[i - 1][j - 1])
+		|| !ft_strchr("210NSEW", map[i - 1][j])
+		|| !ft_strchr("210NSEW", map[i - 1][j + 1])
+		|| !ft_strchr("210NSEW", map[i][j - 1])
+		|| !ft_strchr("210NSEW", map[i][j + 1])
+		|| !ft_strchr("210NSEW", map[i + 1][j - 1])
+		|| !ft_strchr("210NSEW", map[i + 1][j])
+		|| !ft_strchr("210NSEW", map[i + 1][j + 1]))
 		return (FALSE);
 	return (TRUE);
 }

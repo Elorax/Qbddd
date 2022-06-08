@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/08 20:51:29 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/09 00:55:33 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <time.h>
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
 # define TRUE 1
@@ -32,7 +33,7 @@
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
-
+# define MESSAGE 4
 # define MOVESPEED 5.0
 # ifndef FOV
 #  define FOV 90.0
@@ -99,10 +100,11 @@ typedef struct s_player
 	double	planeX;
 	double	planeY;
 	int	zoom;
-
+	double	height;
+	double	z_speed;
+	double	z_accel;
+	int	is_jumping;
 	//not sure
-	double	time;
-	double	old_time;
 }	t_player;
 
 typedef struct s_data
@@ -121,11 +123,16 @@ typedef struct s_data
 	int		map_size;
 	void	*mlx;
 	void	*win;
-	t_image	img[4];
+	t_image	img[5];
 	t_image	render[2];
 	int		frame;
 	t_player	*player;
 	t_movements *move;
+	clock_t	begin;
+	clock_t	current;
+	long	current_ms;
+	long	begin_ms;
+	double	time_diff;
 }	t_data;
 
 # define R_KEY 114
@@ -136,6 +143,7 @@ typedef struct s_data
 # define Q_KEY 113
 # define S_KEY 115
 # define D_KEY 100
+# define SPACE_BAR 32
 # define ESCAPE_KEY 65307
 # define UP_KEY 65362
 # define LEFT_KEY 65361
@@ -144,6 +152,9 @@ typedef struct s_data
 # define W_HEIGHT	600
 # define W_LENGTH	800
 # define CTRL_KEY 65507
+# define INITIAL_Z_SPEED 4.2
+# define JUMP_HEIGHT 0.69
+//# define INITIAL_Z_ACCEL -INITIAL_Z_SPEED*INITIAL_Z_SPEED;
 
 
 //raycasting

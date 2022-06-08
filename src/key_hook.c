@@ -76,6 +76,22 @@ void	manage_movement(t_data *data, int keycode)
 int	handle_no_event(t_data *data)
 {
 //	printf("Je me lance omg\n");
+	if (data->player->is_jumping)
+	{
+		data->current = clock();
+		data->current_ms = data->current / (CLOCKS_PER_SEC / 1000);
+		data->time_diff = (data->current_ms - data->begin_ms) / 1000.0;
+		printf("time_diff : %f\n", data->time_diff);
+	//	data->player->z_speed = data->player->z_accel * (data->current_ms - data->begin_ms) + INITIAL_Z_SPEED;
+	//	data->player->z_speed /= 1000;
+		data->player->height = (data->player->z_accel / 2) * data->time_diff * data->time_diff + data->player->z_speed * data->time_diff;
+		printf("Height : %f\n", data->player->height);
+		if (data->player->height < 0)
+		{
+			data->player->height = 0;
+			data->player->is_jumping = 0;
+		}
+	}
 	if (data->move->move_y == -1)
 	{
 		if (data->map[(int)(data->player->posY)][(int)(data->player->posX + data->player->dirX * MOVESPEED/100)] != '1')
@@ -131,7 +147,7 @@ int	handle_no_event(t_data *data)
 
 int	key_press(int keycode, t_data *data)
 {
-//	printf("%d pressed\n", keycode);
+	printf("%d pressed\n", keycode);
 	
 	if (keycode == W_KEY || keycode == UP_KEY)
 		data->move->move_y = -1;
@@ -147,6 +163,16 @@ int	key_press(int keycode, t_data *data)
 		data->move->rotate = 1;
 	if (keycode == CTRL_KEY)
 		data->player->zoom = ZOOM_FORCE;
+	if (keycode == SPACE_BAR && !data->player->is_jumping)
+	{
+		data->player->z_speed = INITIAL_Z_SPEED;
+		data->player->z_accel = -data->player->z_speed * data->player->z_speed * (1.0/(2.0 * JUMP_HEIGHT));
+		data->player->is_jumping = 1;
+		data->begin = clock();
+		data->current = data->begin;
+		data->begin_ms = data->begin / (CLOCKS_PER_SEC / 1000);
+		data->current_ms = data->begin_ms;
+	}
 //	printf("%d %d %d\n", data->move->move_x, data->move->move_y, data->move->rotate);
 
 	return (keycode);
@@ -171,6 +197,10 @@ int	key_release(int keycode, t_data *data)
 		data->move->rotate = 0;
 	if (keycode == CTRL_KEY)
 		data->player->zoom = 1;
+	if (keycode == SPACE_BAR && data->player->is_jumping && data->player->height == 0)
+	{
+		data->player->is_jumping = 0;
+	}
 	return (keycode);
 }
 

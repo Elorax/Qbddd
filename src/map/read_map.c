@@ -21,6 +21,10 @@ void	read_player(t_player *player, int i, int j, char **map)
 	player->planeX = - player->dirY * tan((FOV / 2 ) * PI/180.0);
 	player->planeY = player->dirX * tan((FOV / 2) * PI/180.0);
 	player->zoom = 1;
+	player->height = 0;
+	player->z_speed = 0;
+	player->z_accel = 0;
+	player->is_jumping = 0;
 }
 
 int	check_map(char **map, t_data *data)
@@ -39,7 +43,7 @@ int	check_map(char **map, t_data *data)
 			if (ft_strchr("0NSEW", map[i][j]))
 				if (!check_around_zero(map, i, j))
 					return (FALSE);
-			if (!ft_strchr("0NSEW1 ", map[i][j]))
+			if (!ft_strchr("20NSEW1 ", map[i][j]))
 				return (FALSE);
 			if (ft_strchr("NSEW", map[i][j]))
 			{
