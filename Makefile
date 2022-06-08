@@ -12,13 +12,14 @@ SRCS		=	main.c								\
 				src/init_images.c					\
 				src/key_hook.c						\
 				src/test_get_addr.c					\
-				src/build_image.c
+				src/build_image.c					\
+				src/init_raycasting.c
 
 OBJS		=	$(SRCS:.c=.o)
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror -O3
+CFLAGS		=	-Wall -Wextra -Werror
 
 NAME		=	Cube3d
 

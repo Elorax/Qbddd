@@ -20,6 +20,7 @@ void	read_player(t_player *player, int i, int j, char **map)
 	player->dirY = (map[i][j] == 'S') - (map[i][j] == 'N');
 	player->planeX = - player->dirY * tan((FOV / 2 ) * PI/180.0);
 	player->planeY = player->dirX * tan((FOV / 2) * PI/180.0);
+	player->zoom = 1;
 }
 
 int	check_map(char **map, t_data *data)

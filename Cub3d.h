@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/07 23:13:03 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/08 20:51:29 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,41 @@
 
 # define MOVESPEED 5.0
 # ifndef FOV
-#  define FOV 300.0
+#  define FOV 90.0
 # endif
 # define PI 3.1415
+# define ZOOM_FORCE 5
 # define ROTSPEED PI / 18.0
 typedef int t_pixel;
+
+typedef struct s_raycasting
+{
+	double	ray_x;//cameraX
+	double	ray_dir_x;	//rayDirX
+	double	ray_dir_y;	//rayDirY
+	int		map_x;
+	int		map_y;
+
+	double	side_dist_x;
+	double	side_dist_y;
+	double	diff_dist_x;
+	double	diff_dist_y;
+	double	dist_perp_wall; //perpWallDist
+	
+	int	step_x;	//stepX
+	int	step_y;	//stepY	//maybe replacing by cardinal ?
+	int	has_hit;	//hit
+	int	facing;	//side
+
+	int	line_height;	//lineHeight
+	int	upper_wall;	//lowerWall
+	int	lower_wall;	//upperWall
+
+	double	x_pix_wall;	//wallX
+
+}	t_raycasting;
+
+
 
 typedef struct s_image
 {
@@ -68,6 +98,7 @@ typedef struct s_player
 	double	dirY;
 	double	planeX;
 	double	planeY;
+	int	zoom;
 
 	//not sure
 	double	time;
@@ -112,6 +143,17 @@ typedef struct s_data
 # define DOWN_KEY 65364
 # define W_HEIGHT	600
 # define W_LENGTH	800
+# define CTRL_KEY 65507
+
+
+//raycasting
+void	init_raycasting(int x, t_raycasting *ray, t_player *player);
+void	calcul_dist(t_raycasting *ray);
+void	calcul_initial_dist(t_raycasting *ray, t_player *player);
+void	casting_ray(t_raycasting *ray, t_data *data);
+double	calcul_perpendiculary_dist(t_raycasting ray);
+void	calcul_wall_drawing(t_raycasting *ray, t_player *player);
+
 
 void	init_frames(t_data *data);
 void	create_big(t_data *data);
@@ -121,6 +163,7 @@ void	pixel_put(t_image *img, int x, int y, int color);
 void	build_image(t_image *img, t_data *data, t_player *player);
 int	get_color(t_image *img, int x, int y);
 
+double	double_abs(double d);
 int	handle_no_event(t_data *data);
 
 int		init_images(t_data *data, t_image *img);
@@ -152,13 +195,5 @@ void	ft_mlx_close_croix_rouge_de_ses_morts(t_data *data);
 
 int	key_press(int keycode, t_data *data);
 int	key_release(int keycode, t_data *data);
-
-
-
-
-//temporaire
-
-
-void	osef(t_image *img, t_data *data);
 
 #endif

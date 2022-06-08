@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 16:30:58 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/01 17:01:34 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/08 19:42:54 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	manage_movement(t_data *data, int keycode)
 
 int	handle_no_event(t_data *data)
 {
-	printf("Je me lance omg\n");
+//	printf("Je me lance omg\n");
 	if (data->move->move_y == -1)
 	{
 		if (data->map[(int)(data->player->posY)][(int)(data->player->posX + data->player->dirX * MOVESPEED/100)] != '1')
@@ -90,21 +90,23 @@ int	handle_no_event(t_data *data)
 		if (data->map[(int)(data->player->posY - data->player->dirY * MOVESPEED/100)][(int)(data->player->posX)] != '1')
 			data->player->posY -= data->player->dirY * MOVESPEED / 100;
 	}
-	if (data->move->move_x == -1)
+	if (data->move->move_x == 1)
 	{
+		printf("%d, %d\n", (int) data->player->posY, (int) (data->player->posX - data->player->dirY * MOVESPEED/100));
 		if (data->map[(int)(data->player->posY)][(int)(data->player->posX - data->player->dirY * MOVESPEED/100)] != '1')
 			data->player->posX -= data->player->dirY * MOVESPEED / 100;
 		if (data->map[(int)(data->player->posY + data->player->dirX * MOVESPEED/100)][(int)(data->player->posX)] != '1')
 			data->player->posY += data->player->dirX * MOVESPEED / 100;
 	}
-	else if (data->move->move_x == 1)
+	else if (data->move->move_x == -1)
 	{
+		printf("%d, %d\n", (int) data->player->posY, (int) (data->player->posX + data->player->dirY * MOVESPEED/100));
 		if (data->map[(int)(data->player->posY)][(int)(data->player->posX + data->player->dirY * MOVESPEED/100)] != '1')
 			data->player->posX += data->player->dirY * MOVESPEED / 100;
 		if (data->map[(int)(data->player->posY - data->player->dirX * MOVESPEED/100)][(int)(data->player->posX)] != '1')
 			data->player->posY -= data->player->dirX * MOVESPEED / 100;
 	}
-	if (data->move->rotate == -1)
+	if (data->move->rotate == 1)
 	{
 		double tmp = data->player->dirX;
 		data->player->dirX = data->player->dirX * cos(ROTSPEED/10) - data->player->dirY * sin(ROTSPEED/10);
@@ -113,7 +115,7 @@ int	handle_no_event(t_data *data)
 		data->player->planeX = tmp * cos(ROTSPEED/10) - data->player->planeY * sin(ROTSPEED/10);
 		data->player->planeY = tmp * sin(ROTSPEED/10) + data->player->planeY * cos(ROTSPEED/10);
 	}
-	else if (data->move->rotate == 1)
+	else if (data->move->rotate == -1)
 	{
 		double tmp = data->player->dirX;
 		data->player->dirX = data->player->dirX * cos(-ROTSPEED/10) - data->player->dirY * sin(-ROTSPEED/10);
@@ -129,7 +131,7 @@ int	handle_no_event(t_data *data)
 
 int	key_press(int keycode, t_data *data)
 {
-	printf("%d pressed\n", keycode);
+//	printf("%d pressed\n", keycode);
 	
 	if (keycode == W_KEY || keycode == UP_KEY)
 		data->move->move_y = -1;
@@ -143,14 +145,16 @@ int	key_press(int keycode, t_data *data)
 		data->move->rotate = -1;
 	else if (keycode == RIGHT_KEY)
 		data->move->rotate = 1;
-	printf("%d %d %d\n", data->move->move_x, data->move->move_y, data->move->rotate);
+	if (keycode == CTRL_KEY)
+		data->player->zoom = ZOOM_FORCE;
+//	printf("%d %d %d\n", data->move->move_x, data->move->move_y, data->move->rotate);
 
 	return (keycode);
 }
 
 int	key_release(int keycode, t_data *data)
 {
-		printf("%d released\n", keycode);
+//		printf("%d released\n", keycode);
 	if (keycode == ESCAPE_KEY)
 		ft_mlx_close_game(data);
 	if (keycode == W_KEY || keycode == UP_KEY)
@@ -165,6 +169,8 @@ int	key_release(int keycode, t_data *data)
 		data->move->rotate = 0;
 	else if (keycode == RIGHT_KEY)
 		data->move->rotate = 0;
+	if (keycode == CTRL_KEY)
+		data->player->zoom = 1;
 	return (keycode);
 }
 

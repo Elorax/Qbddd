@@ -51,7 +51,7 @@ int	main(int ac, char **av)
 		return (free_data(&data), printf("window creation failed\n"), 0);
 	mlx_put_image_to_window(data.mlx, data.win, data.img[0].img, 0, 0);
 	init_frames(&data);
-	//	printf("cc\n");
+	printf("cc\n");
 
 	create_big(&data);
 //	mlx_key_hook(data.win, key_hook, &data);
