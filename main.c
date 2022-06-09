@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:25:01 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/07 18:38:55 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:49:02 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int ac, char **av)
 	move.move_x = 0;
 	move.move_y = 0;
 	move.rotate = 0;
+	move.try_move_x = 0;
+	move.try_move_y = 0;
 	data.move = &move;
 	data.frame = 0;
 	if (is_arg_valid(ac, av) == FALSE)
@@ -59,7 +61,7 @@ int	main(int ac, char **av)
 	mlx_hook(data.win, 17, 0, exit_hook, &data);
 	mlx_hook(data.win, 02, (1L<<1), key_press, &data);
 	mlx_hook(data.win, 03, (1L<<0), key_release, &data);
-	mlx_do_key_autorepeaton(data.mlx);
+	mlx_do_key_autorepeatoff(data.mlx);
 	mlx_loop(data.mlx);
 	free_data(&data);
 	return (0);

@@ -1,7 +1,7 @@
-NO ./text/random.xpm
+NO ./text/pokeball.xpm
 SO ./text/smiley.xpm
 EA ./text/flower.xpm
-WE ./text/message.xpm
+WE ./text/bricks.xpm
 
 F 64,64,64
 C 0,0,255
@@ -22,6 +22,6 @@ C 0,0,255
 11001000000000001
 11001000000000001
  1111000011110001
-    10N001 100001
+    10W001 100001
     100001 100001
     111111 111111

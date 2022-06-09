@@ -15,8 +15,8 @@
 void	init_raycasting(int x, t_raycasting *ray, t_player *player)
 {
 	ray->ray_x = 2 * x / (double)(W_HEIGHT) - 1;
-	ray->ray_dir_x = player->dirX + (player->planeX / player->zoom) * ray->ray_x;
-	ray->ray_dir_y = player->dirY + (player->planeY / player->zoom) * ray->ray_x;
+	ray->ray_dir_x = player->lookingX + (player->planeX / player->zoom) * ray->ray_x;
+	ray->ray_dir_y = player->lookingY + (player->planeY / player->zoom) * ray->ray_x;
 
 	ray->map_x = (int) player->posX;
 	ray->map_y = (int) player->posY;
@@ -95,13 +95,13 @@ double	calcul_perpendiculary_dist(t_raycasting ray)
 
 void	calcul_wall_drawing(t_raycasting *ray, t_player *player)
 {
-	int	line_height;
+	double	line_height;
 	if (ray->dist_perp_wall == 0)
 		line_height = 1000000;
 	else
-		line_height = (int) (W_HEIGHT / ray->dist_perp_wall);
-	ray->upper_wall = W_HEIGHT / 2 - (1 / (1 + player->height)) * line_height * (28.0 * player->zoom/FOV) ;	//+/- offset
-	ray->lower_wall = W_HEIGHT / 2 + ((2 - (1 / (1 + player->height)))) * line_height * (28.0 * player->zoom/FOV);	//+/- offset
+		line_height = (W_HEIGHT / ray->dist_perp_wall);
+	ray->upper_wall = W_HEIGHT / 2 - (1 / (1 + player->height)) * line_height * (28.0 * player->zoom/FOV) + player->height * line_height / 2.0;	//+/- offset
+	ray->lower_wall = W_HEIGHT / 2 + ((2 - (1 / (1 + player->height)))) * line_height * (28.0 * player->zoom/FOV) + player->height * line_height / 2.0;	//+/- offset
 
 	
 	if (ray->facing % 4 == EAST || ray->facing % 4 == WEST)
@@ -109,8 +109,6 @@ void	calcul_wall_drawing(t_raycasting *ray, t_player *player)
 	else
 		ray->x_pix_wall = (double) player->posX + ray->dist_perp_wall * ray->ray_dir_x;	
 	ray->x_pix_wall -= floor(ray->x_pix_wall);
-
-		//Bon ca c'est de la giga rustine qui fait degueuler mais osef
 	if (!(ray->facing % 2))
 		ray->x_pix_wall = 1 - ray->x_pix_wall;
 }

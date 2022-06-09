@@ -18,6 +18,8 @@ void	read_player(t_player *player, int i, int j, char **map)
 	player->posY = i;
 	player->dirX = (map[i][j] == 'E') - (map[i][j] == 'W');
 	player->dirY = (map[i][j] == 'S') - (map[i][j] == 'N');
+	player->lookingX = player->dirX;
+	player->lookingY = player->dirY;
 	player->planeX = - player->dirY * tan((FOV / 2 ) * PI/180.0);
 	player->planeY = player->dirX * tan((FOV / 2) * PI/180.0);
 	player->zoom = 1;
@@ -25,6 +27,11 @@ void	read_player(t_player *player, int i, int j, char **map)
 	player->z_speed = 0;
 	player->z_accel = 0;
 	player->is_jumping = 0;
+	player->sprint = 0;
+	player->try_sprint = 0;
+	player->stamina = 500;
+	player->can_sprint = 1;
+	player->ms = 0;
 }
 
 int	check_map(char **map, t_data *data)

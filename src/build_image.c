@@ -20,6 +20,54 @@ double	double_abs(double d)
 	return (d);
 }
 
+void	draw_stamina_bar(t_image *img, t_data *data)
+{
+	int	y;
+	int	x;
+
+	for (y = 500; y < 505; y++)
+	{
+		for (x = 345; x < 455; x++)
+		{
+			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+		}
+	}
+	for (y = 550; y < 555; y++)
+	{
+		for (x = 345; x < 455; x++)
+		{
+			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+		}
+	}
+	for (x = 345; x < 350; x++)
+	{
+		for (y = 500; y < 550; y++)
+		{
+			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+		}
+	}
+	for (x = 450; x < 455; x++)
+	{
+		for (y = 500; y < 550; y++)
+		{
+			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+		}
+	}
+	for(x = 350; x < 450; x++)
+	{
+		if (data->player->stamina / 5 > x - 350)
+		{
+			for (y = 505; y < 550; y++)
+			{
+				pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+
+			}
+		}
+		else
+			break;
+	}
+}
+
 void	build_image(t_image *img, t_data *data, t_player *player)
 {
 	int				x;
@@ -38,6 +86,7 @@ void	build_image(t_image *img, t_data *data, t_player *player)
 		ray.facing = 4;
 		draw_line(img, data, ray.x_pix_wall, x, ray.upper_wall, ray.lower_wall, &data->img[ray.facing]);
 	}
+	draw_stamina_bar(img, data);
 }
 
 void	draw_line(t_image *img, t_data *data, double wallX, int x, int upperWall, int lowerWall, t_image *texture)
@@ -51,7 +100,7 @@ void	draw_line(t_image *img, t_data *data, double wallX, int x, int upperWall, i
 	if (x_img >= texture->width)
 		x_img = texture->width - 1;
 	y = 0;
-	while (y < upperWall)
+	while (y < upperWall && y < W_HEIGHT)
 		pixel_put(img, x, y++, data->Ccolor);
 	while (y < lowerWall && y < W_HEIGHT)
 	{

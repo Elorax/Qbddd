@@ -88,6 +88,8 @@ typedef struct s_movements
 {
 	int	move_x;
 	int	move_y;
+	int	try_move_x;
+	int	try_move_y;
 	int	rotate;
 }	t_movements;
 
@@ -97,13 +99,20 @@ typedef struct s_player
 	double	posY;
 	double	dirX;
 	double	dirY;
+	double	lookingX;
+	double	lookingY;
 	double	planeX;
 	double	planeY;
 	int	zoom;
+	int	stamina;
+	int	sprint;
+	int	try_sprint;
+	int	can_sprint;
 	double	height;
 	double	z_speed;
 	double	z_accel;
 	int	is_jumping;
+	double	ms;
 	//not sure
 }	t_player;
 
@@ -145,6 +154,7 @@ typedef struct s_data
 # define D_KEY 100
 # define SPACE_BAR 32
 # define ESCAPE_KEY 65307
+# define SHIFT_KEY 65505
 # define UP_KEY 65362
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
@@ -153,7 +163,7 @@ typedef struct s_data
 # define W_LENGTH	800
 # define CTRL_KEY 65507
 # define INITIAL_Z_SPEED 4.2
-# define JUMP_HEIGHT 0.69
+# define JUMP_HEIGHT 0.44	//0.44 JOLIE VALEUR
 //# define INITIAL_Z_ACCEL -INITIAL_Z_SPEED*INITIAL_Z_SPEED;
 
 
