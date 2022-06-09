@@ -40,7 +40,7 @@
 # endif
 # define PI 3.1415
 # define ZOOM_FORCE 5
-# define ROTSPEED PI / 18.0
+# define ROTSPEED 1.5 * PI / 18.0
 typedef int t_pixel;
 
 typedef struct s_raycasting

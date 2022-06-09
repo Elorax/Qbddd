@@ -119,7 +119,7 @@ int	handle_no_event(t_data *data)
 			data->player->dirX = data->player->lookingX;
 		}
 	}
-	data->player->ms = (1 + 30.5 * data->player->sprint) * (1 + 0.3 * data->player->is_jumping) * (MOVESPEED / 100.0) * (1.0 - (0.33 * (data->move->move_y && data->move->move_x)));
+	data->player->ms = (1 + 0.6 * data->player->sprint) * (1 + 0.3 * data->player->is_jumping) * (MOVESPEED / 100.0) * (1.0 - (0.33 * (data->move->move_y && data->move->move_x)));
 	if (data->player->ms > 0.8)
 		data->player->ms = 0.8;
 
