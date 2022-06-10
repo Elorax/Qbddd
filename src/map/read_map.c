@@ -44,8 +44,8 @@ int	check_map(char **map, t_data *data)
 	i = -1;
 	while (map[++i])
 	{
-		j = -1;
-		while (map[i][++j] != '\n')
+		j = 0;
+		while (map[i][j] && map[i][j] != '\n')
 		{
 			if (ft_strchr("0NSEW", map[i][j]))
 				if (!check_around_zero(map, i, j))
@@ -57,6 +57,7 @@ int	check_map(char **map, t_data *data)
 				nb_player++;
 				read_player(data->player, i, j, map);
 			}
+			j++;
 		}
 	}
 	return (nb_player == 1);

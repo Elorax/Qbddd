@@ -14,7 +14,7 @@
 
 void	init_raycasting(int x, t_raycasting *ray, t_player *player)
 {
-	ray->ray_x = 2 * x / (double)(W_HEIGHT) - 1;
+	ray->ray_x = 2 * x / (double)(W_LENGTH) - 1;
 	ray->ray_dir_x = player->lookingX + (player->planeX / player->zoom) * ray->ray_x;
 	ray->ray_dir_y = player->lookingY + (player->planeY / player->zoom) * ray->ray_x;
 

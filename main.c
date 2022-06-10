@@ -6,11 +6,62 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:25:01 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/09 11:49:02 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/10 11:19:08 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3d.h"
+
+void	init_movements(t_movements *move)
+{
+	move->move_x = 0;
+	move->move_y = 0;
+	move->rotate = 0;
+	move->try_move_x = 0;
+	move->try_move_y = 0;
+}
+
+void	reading(char *av,
+			t_data *data, t_player *player, t_movements *move)
+{
+	data->player = player;
+	data->move = move;
+	init_data(data);
+	init_movements(data->move);
+	data->fd = open(av, O_RDONLY);
+	if (data->fd < 0)
+		exit((printf("Error : File descriptor invalid\n"), 0));
+	read_map_parameters(data);
+	count_map_size(data);
+	read_map(data, av);
+	print_data(*data);
+	close(data->fd);
+	if (check_map(data->map, data))
+		printf("Map safe, skip voting\n");
+	else
+		exit((free_data(data), printf("This map is sus\n"), 0));
+}
+
+void	create_window(t_data *data, char *av)
+{
+	data->mlx = mlx_init();
+	if (!data->mlx)
+		exit((free_data(data), printf("mlx init failed\n"), 0));
+	if (!init_images(data, data->img))
+		exit((free_data(data), printf("img not loaded\n"), 0));
+	if (!init_frames(data))
+		exit((free_data(data), printf("mlx_new_image FAILED MISERABLY\n"), 0));
+	data->win = mlx_new_window(data->mlx, W_LENGTH, W_HEIGHT, av);
+	if (!data->win)
+		exit((free_data(data), printf("window creation failed\n"), 0));
+	create_big(data);
+	mlx_loop_hook(data->mlx, handle_no_event, data);
+	mlx_hook(data->win, 17, 0, exit_hook, data);
+	mlx_hook(data->win, 02, (1L<<1), key_press, data);
+	mlx_hook(data->win, 03, (1L<<0), key_release, data);
+	mlx_do_key_autorepeatoff(data->mlx);
+	mlx_loop(data->mlx);
+}
 
 int	main(int ac, char **av)
 {
@@ -18,51 +69,9 @@ int	main(int ac, char **av)
 	t_player	player;
 	t_movements	move;
 
-	data.player = &player;
-	move.move_x = 0;
-	move.move_y = 0;
-	move.rotate = 0;
-	move.try_move_x = 0;
-	move.try_move_y = 0;
-	data.move = &move;
-	data.frame = 0;
 	if (is_arg_valid(ac, av) == FALSE)
 		return (EXIT_FAILURE);
-	init_data(&data);
-	data.fd = open(av[1], O_RDONLY);
-	if (data.fd < 0)
-		return (printf("Error : File descriptor invalid\n"), 0);
-	read_map_parameters(&data);
-	count_map_size(&data);
-	read_map(&data, av[1]);
-	print_data(data);
-	close(data.fd);
+	reading(av[1], &data, &player, &move);
+	create_window(&data, av[1]);
 
-	if (check_map(data.map, &data))
-		printf("Map safe, skip voting\n");
-	else
-		return (free_data(&data), printf("This map is sus\n"), 0);
-	data.mlx = mlx_init();
-	if (!data.mlx)
-		return (free_data(&data), printf("mlx init failed\n"), 0);
-	if (!init_images(&data, data.img))
-		return (free_data(&data), printf("img not loaded\n"), 0);
-	data.win = mlx_new_window(data.mlx, W_LENGTH, W_HEIGHT, "OMG OMG OMG OMG");
-
-	if (!data.win)
-		return (free_data(&data), printf("window creation failed\n"), 0);
-	mlx_put_image_to_window(data.mlx, data.win, data.img[0].img, 0, 0);
-	init_frames(&data);
-	printf("cc\n");
-
-	create_big(&data);
-//	mlx_key_hook(data.win, key_hook, &data);
-	mlx_loop_hook(data.mlx, &handle_no_event, &data);
-	mlx_hook(data.win, 17, 0, exit_hook, &data);
-	mlx_hook(data.win, 02, (1L<<1), key_press, &data);
-	mlx_hook(data.win, 03, (1L<<0), key_release, &data);
-	mlx_do_key_autorepeatoff(data.mlx);
-	mlx_loop(data.mlx);
-	free_data(&data);
-	return (0);
 }

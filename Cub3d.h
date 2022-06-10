@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/09 00:55:33 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:22:01 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,8 @@ typedef struct s_data
 # define W_HEIGHT	600
 # define W_LENGTH	800
 # define CTRL_KEY 65507
-# define INITIAL_Z_SPEED 4.2
-# define JUMP_HEIGHT 0.44	//0.44 JOLIE VALEUR
+# define INITIAL_Z_SPEED 8.2
+# define JUMP_HEIGHT 0.88	//0.44 JOLIE VALEUR
 //# define INITIAL_Z_ACCEL -INITIAL_Z_SPEED*INITIAL_Z_SPEED;
 
 
@@ -175,11 +175,12 @@ void	casting_ray(t_raycasting *ray, t_data *data);
 double	calcul_perpendiculary_dist(t_raycasting ray);
 void	calcul_wall_drawing(t_raycasting *ray, t_player *player);
 
-
-void	init_frames(t_data *data);
+void	init_movements(t_movements *move);
+void	reading(char *av, t_data *data, t_player *player, t_movements *move);
+int	init_frames(t_data *data);
 void	create_big(t_data *data);
 double	double_abs(double d);
-void	draw_line(t_image *img, t_data *data, double wallX, int x, int upperWall, int lowerWall, t_image *texture);
+void	draw_line(t_image *img, t_data *data, int x, t_raycasting *ray);
 void	pixel_put(t_image *img, int x, int y, int color);
 void	build_image(t_image *img, t_data *data, t_player *player);
 int	get_color(t_image *img, int x, int y);

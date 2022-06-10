@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 19:11:35 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/08 19:26:53 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/10 11:09:33 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,107 @@ double	double_abs(double d)
 	return (d);
 }
 
-void	draw_stamina_bar(t_image *img, t_data *data)
+void	draw_bar_1(t_image *img, t_data *data)
 {
-	int	y;
 	int	x;
+	int	y;
 
-	for (y = 500; y < 505; y++)
+	y = W_HEIGHT / 100 * 90;
+	while (y < W_HEIGHT / 100 * 90 + 5)
 	{
-		for (x = 345; x < 455; x++)
+		x = W_LENGTH / 2 - W_LENGTH / 12 - 5;
+		while (x < W_LENGTH / 2 + W_LENGTH / 12 + 5)
 		{
 			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+			x++;
 		}
+		y++;
 	}
+	y = W_HEIGHT / 100 * 95;
+	while (y < W_HEIGHT / 100 * 95 + 5)
+	{
+		x = W_LENGTH / 2 - W_LENGTH / 12 - 5;
+		while (x < W_LENGTH / 2 + W_LENGTH / 12 + 5)
+		{
+			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+			x++;
+		}
+		y++;
+	}
+}
+
+void	draw_bar_2(t_image *img, t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = W_LENGTH / 2 - W_LENGTH / 12 - 5;
+	while (x < W_LENGTH / 2 - W_LENGTH / 12)
+	{
+		y = W_HEIGHT / 100 * 90;
+		while (y < W_HEIGHT / 100 * 95)
+		{
+			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+			y++;
+		}
+		x++;
+	}
+	x = W_LENGTH / 2 + W_LENGTH / 12;
+	while (x < W_LENGTH / 2 + W_LENGTH / 12 + 5)
+	{
+		y = W_HEIGHT / 100 * 90;
+		while (y < W_HEIGHT / 100 * 95)
+		{
+			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+			y++;
+		}
+		x++;
+	}
+}
+
+void	fill_bar(t_image *img, t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = W_LENGTH / 2 - W_LENGTH / 12;
+	while (x < W_LENGTH / 2 + W_LENGTH / 12)
+	{
+	//	printf("%d > %d\n", data->player->stamina / (W_LENGTH / 6), x - (W_LENGTH / 2 - W_LENGTH / 12));
+		if (data->player->stamina * 71 / (W_LENGTH / 3) > x - (W_LENGTH / 2 - W_LENGTH / 12))
+		{
+			y = W_HEIGHT / 100 * 90 + 5;
+			while (y < W_HEIGHT / 100 * 95)
+			{
+				pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+				y++;
+			}			
+		}
+		x++;
+	}
+
+}
+
+void	staminamina_heyhey(t_image *img, t_data *data)
+{
+	/*int	y;
+	int	x;*/
+
+
+	draw_bar_1(img, data);
+	draw_bar_2(img, data);
+	fill_bar(img, data);
+	/*for (y = 500; y < 505; y++)
+		for (x = 345; x < 455; x++)
 	for (y = 550; y < 555; y++)
-	{
-		for (x = 345; x < 455; x++)
-		{
-			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
-		}
-	}
-	for (x = 345; x < 350; x++)
-	{
+		for (x = 345; x < 455; x++)*/
+/*	for (x = 345; x < 350; x++)
 		for (y = 500; y < 550; y++)
-		{
-			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
-		}
-	}
 	for (x = 450; x < 455; x++)
-	{
-		for (y = 500; y < 550; y++)
-		{
-			pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
-		}
-	}
-	for(x = 350; x < 450; x++)
+		for (y = 500; y < 550; y++)*/
+
+
+	/*for(x = 350; x < 450; x++)
 	{
 		if (data->player->stamina / 5 > x - 350)
 		{
@@ -65,7 +132,7 @@ void	draw_stamina_bar(t_image *img, t_data *data)
 		}
 		else
 			break;
-	}
+	}*/
 }
 
 void	draw_black_line(t_image *img, int x, int up, int down)
@@ -83,18 +150,7 @@ void	draw_black_line(t_image *img, int x, int up, int down)
 
 int	is_in_circle(int y, int ray, int x_to_center)
 {
-	//printf("%f\n", sqrt(200 * 200 + 200 * 200));
-	//y = 300;
-//	x_to_center = 0;
-//	double a = x_to_center * x_to_center;
-//	double b = W_HEIGHT / 2 - y;
-//	b = b * b;
-//	if (x_to_center < 2)
-//		printf("%d / 2 - %d = %f\n", W_HEIGHT, y, b);
 
-	//	printf("%f, %f\n", a, b);
-	//printf("float : %f\n", sqrt( (x_to_center * x_to_center) + ((W_HEIGHT / 2 - y) * (W_HEIGHT / 2.0 - y))));
-//	printf("%d\n", x_to_center);
 	if (x_to_center < 0)
 		x_to_center *= -1;
 	if (sqrt((double) (x_to_center * x_to_center) + (double)(W_HEIGHT / 2.0 - (double)(y)) * (double)(W_HEIGHT / 2.0 - (double)y)) < (double)(ray))
@@ -107,7 +163,9 @@ void	get_intersec(int x, int ray, int *up, int *down)
 	int	y;
 
 	y = 0;
-	while (!is_in_circle(y, ray, 250 - x) && !is_in_circle(y, ray, 550 - x) && y < W_HEIGHT / 2)
+	while (!is_in_circle(y, ray, 250 - x)
+			&& !is_in_circle(y, ray, 550 - x)
+			&& y < W_HEIGHT / 2)
 		y++;
 	if (y >= W_HEIGHT / 2)
 	{
@@ -157,30 +215,36 @@ void	build_image(t_image *img, t_data *data, t_player *player)
 		calcul_wall_drawing(&ray, player);
 		if (ray.facing > 3)
 		ray.facing = 4;
-		draw_line(img, data, ray.x_pix_wall, x, ray.upper_wall, ray.lower_wall, &data->img[ray.facing]);
+		draw_line(img, data, x, &ray);
 	}
 	if (data->player->zoom > 1)
 		draw_black(img);
 	else
-		draw_stamina_bar(img, data);
+		staminamina_heyhey(img, data);
 }
 
-void	draw_line(t_image *img, t_data *data, double wallX, int x, int upperWall, int lowerWall, t_image *texture)
+void	draw_line(t_image *img, t_data *data, int x, t_raycasting *ray)
 {
 	int	y;
 	int	x_img;
+	t_image	*texture;
 
-	x_img = floor(wallX * (double) texture->width);
+	texture = &data->img[ray->facing];
+	x_img = floor(ray->x_pix_wall * (double) texture->width);
 	if (x_img < 0)
 		x_img = 0;
 	if (x_img >= texture->width)
 		x_img = texture->width - 1;
 	y = 0;
-	while (y < upperWall && y < W_HEIGHT)
+	while (y < ray->upper_wall && y < W_HEIGHT / 2)
 		pixel_put(img, x, y++, data->Ccolor);
-	while (y < lowerWall && y < W_HEIGHT)
+	while (y < ray->upper_wall && y < W_HEIGHT)
+		pixel_put(img, x, y++, data->Fcolor);
+	while (y < ray->lower_wall && y < W_HEIGHT)
 	{
-		pixel_put(img, x, y, get_color(texture, x_img, texture->width * (y - upperWall) / (lowerWall - upperWall)));
+		pixel_put(img, x, y, get_color(texture, x_img,
+				texture->width * (y - ray->upper_wall)
+				/ (ray->lower_wall - ray->upper_wall)));
 		y++;
 	}
 	while (y < W_HEIGHT)
