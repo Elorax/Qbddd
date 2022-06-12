@@ -40,7 +40,7 @@
 # endif
 # define PI 3.1415
 # define ZOOM_FORCE 5
-# define ROTSPEED 1.5 * PI / 18.0
+# define ROTSPEED (1.5 * PI / 18.0)
 # define R_KEY 114
 # define W_KEY 119
 # define A_KEY 97
@@ -56,12 +56,13 @@
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 # define DOWN_KEY 65364
-# define W_HEIGHT	600
-# define W_LENGTH	800
+# define W_HEIGHT	700
+# define W_LENGTH	1800
 # define CTRL_KEY 65507
 # define INITIAL_Z_SPEED 4
 # define JUMP_HEIGHT 0.44	//0.44 JOLIE VALEUR
-typedef int t_pixel;
+
+typedef int	t_pixel;
 
 typedef struct s_raycasting
 {
@@ -70,27 +71,20 @@ typedef struct s_raycasting
 	double	ray_dir_y;	//rayDirY
 	int		map_x;
 	int		map_y;
-
 	double	side_dist_x;
 	double	side_dist_y;
 	double	diff_dist_x;
 	double	diff_dist_y;
 	double	dist_perp_wall; //perpWallDist
-	
-	int	step_x;	//stepX
-	int	step_y;	//stepY	//maybe replacing by cardinal ?
-	int	has_hit;	//hit
-	int	facing;	//side
-
-	int	line_height;	//lineHeight
-	int	upper_wall;	//lowerWall
-	int	lower_wall;	//upperWall
-
+	int		step_x;	//stepX
+	int		step_y;	//stepY	//maybe replacing by cardinal ?
+	int		has_hit;	//hit
+	int		facing;	//side
+	int		line_height;	//lineHeight
+	int		upper_wall;	//lowerWall
+	int		lower_wall;	//upperWall
 	double	x_pix_wall;	//wallX
-
 }	t_raycasting;
-
-
 
 typedef struct s_image
 {
@@ -122,48 +116,58 @@ typedef struct s_player
 	double	lookingY;
 	double	planeX;
 	double	planeY;
-	int	zoom;
-	int	stamina;
-	int	sprint;
-	int	try_sprint;
-	int	can_sprint;
+	int		zoom;
+	int		stamina;
+	int		sprint;
+	int		try_sprint;
+	int		can_sprint;
 	double	height;
 	double	z_speed;
 	double	z_accel;
-	int	is_jumping;
+	int		is_jumping;
 	double	ms;
 }	t_player;
 
 typedef struct s_data
 {
-	int	fd;
-	char	**map;
-	char	*path_north;
-	char	*path_south;
-	char	*path_east;
-	char	*path_west;
-	t_pixel	Fcolor;
-	t_pixel	Ccolor;
-	int		nb_param;
-	int		begin_map;
-	int		end_map;
-	int		map_size;
-	void	*mlx;
-	void	*win;
-	t_image	img[5];
-	t_image	render[2];
-	int		frame;
+	int			fd;
+	char		**map;
+	char		*path_north;
+	char		*path_south;
+	char		*path_east;
+	char		*path_west;
+	t_pixel		Fcolor;
+	t_pixel		Ccolor;
+	int			nb_param;
+	int			begin_map;
+	int			end_map;
+	int			map_size;
+	void		*mlx;
+	void		*win;
+	t_image		img[5];
+	t_image		render[2];
+	int			frame;
 	t_player	*player;
-	t_movements *move;
-	clock_t	begin;
-	clock_t	current;
-	long	current_ms;
-	long	begin_ms;
-	double	time_diff;
+	t_movements	*move;
+	clock_t		begin;
+	clock_t		current;
+	long		current_ms;
+	long		begin_ms;
+	double		time_diff;
 }	t_data;
 
 //# define INITIAL_Z_ACCEL -INITIAL_Z_SPEED*INITIAL_Z_SPEED;
 
+void	update_movements(t_data *data);
+void	update_stamina(t_data *data);
+void	update_jump(t_data *data);
+double	calcul_movespeed(t_data *data);
+void	update_player(t_data *data);
+void	update_player_y(t_data *data);
+void	update_player_x(t_data *data);
+void	update_player_direction(t_data *data);
+void	update_player_rotation(t_data *data);
+void	draw_black_line(t_image *img, int x, int up, int down);
 
 //raycasting
 void	init_raycasting(int x, t_raycasting *ray, t_player *player);
@@ -175,16 +179,16 @@ void	calcul_wall_drawing(t_raycasting *ray, t_player *player);
 
 void	init_movements(t_movements *move);
 void	reading(char *av, t_data *data, t_player *player, t_movements *move);
-int	init_frames(t_data *data);
+int		init_frames(t_data *data);
 void	create_big(t_data *data);
 double	double_abs(double d);
 void	draw_line(t_image *img, t_data *data, int x, t_raycasting *ray);
 void	pixel_put(t_image *img, int x, int y, int color);
 void	build_image(t_image *img, t_data *data, t_player *player);
-int	get_color(t_image *img, int x, int y);
+int		get_color(t_image *img, int x, int y);
 
 double	double_abs(double d);
-int	handle_no_event(t_data *data);
+int		handle_no_event(t_data *data);
 
 int		init_images(t_data *data, t_image *img);
 int		read_line(char *line, t_data *data);
@@ -206,14 +210,13 @@ void	read_map_parameters(t_data *data);
 void	count_map_size(t_data *data);
 void	read_map(t_data *data, char *path);
 void	print_data(t_data data);
-int	exit_hook(t_data *data);
-int	key_hook(int keycode, t_data *data);
+int		exit_hook(t_data *data);
+int		key_hook(int keycode, t_data *data);
 void	manage_movement(t_data *data, int keycode);
 void	ft_mlx_close_game(t_data *data);
 void	ft_mlx_close_croix_rouge_de_ses_morts(t_data *data);
 
-
-int	key_press(int keycode, t_data *data);
-int	key_release(int keycode, t_data *data);
+int		key_press(int keycode, t_data *data);
+int		key_release(int keycode, t_data *data);
 
 #endif
