@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:25:01 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/10 11:19:08 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/12 14:56:05 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ void	create_window(t_data *data, char *av)
 	create_big(data);
 	mlx_loop_hook(data->mlx, handle_no_event, data);
 	mlx_hook(data->win, 17, 0, exit_hook, data);
-	mlx_hook(data->win, 02, (1L<<1), key_press, data);
-	mlx_hook(data->win, 03, (1L<<0), key_release, data);
+	mlx_hook(data->win, 02, (1L << 1), key_press, data);
+	mlx_hook(data->win, 03, (1L << 0), key_release, data);
 	mlx_do_key_autorepeatoff(data->mlx);
 	mlx_loop(data->mlx);
 }
 
 int	main(int ac, char **av)
 {
-	t_data	data;
+	t_data		data;
 	t_player	player;
 	t_movements	move;
 
@@ -73,5 +73,4 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	reading(av[1], &data, &player, &move);
 	create_window(&data, av[1]);
-
 }

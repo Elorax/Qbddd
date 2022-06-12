@@ -1,7 +1,7 @@
 NO ./text/pokeball.xpm
 SO ./text/smiley.xpm
 EA ./text/flower.xpm
-WE ./text/bricks.xpm
+EA ./text/flower.xpm
 
 F 64,64,64
 C 0,0,255

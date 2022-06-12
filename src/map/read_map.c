@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:06:22 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/05/30 18:34:05 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/12 16:15:09 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	read_player(t_player *player, int i, int j, char **map)
 	player->dirY = (map[i][j] == 'S') - (map[i][j] == 'N');
 	player->lookingX = player->dirX;
 	player->lookingY = player->dirY;
-	player->planeX = - player->dirY * tan((FOV / 2 ) * PI/180.0);
-	player->planeY = player->dirX * tan((FOV / 2) * PI/180.0);
+	player->planeX = -player->dirY * tan((FOV / 2) * PI / 180.0);
+	player->planeY = player->dirX * tan((FOV / 2) * PI / 180.0);
 	player->zoom = 1;
 	player->height = 0;
 	player->z_speed = 0;

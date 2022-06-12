@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:32:45 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/08 19:46:09 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/12 16:12:27 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	get_color(t_image *img, int x, int y)
 
 void	create_big(t_data *data)
 {
-//	static int nb = 0;
-//	printf("building image %d\n", nb++);
-	build_image(&data->render[data->frame%2], data, data->player);
-	mlx_put_image_to_window(data->mlx, data->win, data->render[data->frame++%2].img, 0, 0);
+	build_image(&data->render[data->frame % 2], data, data->player);
+	mlx_put_image_to_window(data->mlx, data->win,
+		data->render[data->frame++ % 2].img, 0, 0);
 }

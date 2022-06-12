@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:05:57 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/10 10:54:58 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/12 16:13:06 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_data(t_data *data)
 	free(data->path_east);
 	free(data->path_west);
 	if (data->img[0].img)
-	mlx_destroy_image(data->mlx, data->img[0].img);
+		mlx_destroy_image(data->mlx, data->img[0].img);
 	if (data->img[1].img)
 		mlx_destroy_image(data->mlx, data->img[1].img);
 	if (data->img[2].img)

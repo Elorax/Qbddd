@@ -6,19 +6,13 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 19:11:35 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/10 11:09:33 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/12 15:06:02 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3d.h"
 
-
-double	double_abs(double d)
-{
-	if (d < 0)
-		return (-d);
-	return (d);
-}
+//stamina_display.c
 
 void	draw_bar_1(t_image *img, t_data *data)
 {
@@ -86,18 +80,19 @@ void	fill_bar(t_image *img, t_data *data)
 	x = W_LENGTH / 2 - W_LENGTH / 12;
 	while (x < W_LENGTH / 2 + W_LENGTH / 12)
 	{
-		if (W_LENGTH * 5 / 12 + ((W_LENGTH / 6) * data->player->stamina) / 500.0 > x)
+		if (W_LENGTH * 5 / 12 + ((W_LENGTH / 6)
+				* data->player->stamina) / 500.0 > x)
 		{
 			y = W_HEIGHT / 100 * 90 + 5;
 			while (y < W_HEIGHT / 100 * 95)
 			{
-				pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
+				pixel_put(img, x, y, 0xFFFF00
+					/ (1 + !data->player->can_sprint));
 				y++;
 			}			
 		}
 		x++;
 	}
-
 }
 
 void	staminamina_heyhey(t_image *img, t_data *data)
@@ -105,6 +100,71 @@ void	staminamina_heyhey(t_image *img, t_data *data)
 	draw_bar_1(img, data);
 	draw_bar_2(img, data);
 	fill_bar(img, data);
+}
+
+
+
+//calculs.c
+
+int	is_in_circle(int y, int ray, int x_to_center)
+{
+	if (x_to_center < 0)
+		x_to_center *= -1;
+	if (sqrt((double)(x_to_center * x_to_center) + (double)(W_HEIGHT
+		/ 2.0 - (double)(y)) *(double)(W_HEIGHT
+			/ 2.0 - (double)(y))) < (double)(ray))
+		return (1);
+	return (0);
+}
+
+void	get_intersec(int x, int ray, int *up, int *down)
+{
+	int	y;
+
+	if (*up)
+		return ;
+	y = 0;
+	while (!is_in_circle(y, ray, 250 - x)
+		&& !is_in_circle(y, ray, 550 - x)
+		&& y < W_HEIGHT / 2)
+		y++;
+	if (y >= W_HEIGHT / 2)
+	{
+		*up = -1;
+		*down = -1;
+	}
+	else
+	{
+		*up = y;
+		*down = W_HEIGHT - y;
+	}
+}
+
+double	double_abs(double d)
+{
+	if (d < 0)
+		return (-d);
+	return (d);
+}
+
+//draw_line.c
+void	draw_black(t_image *img)
+{
+	int			x;
+	static int	up[W_LENGTH];
+	static int	down[W_LENGTH];
+
+	x = -1;
+	while (++x < W_LENGTH)
+	{
+		if (x < 51 || x > 749)
+			draw_black_line(img, x, -1, -1);
+		else
+		{
+			get_intersec(x, 200, up + x, down + x);
+			draw_black_line(img, x, up[x], down[x]);
+		}
+	}
 }
 
 void	draw_black_line(t_image *img, int x, int up, int down)
@@ -120,59 +180,7 @@ void	draw_black_line(t_image *img, int x, int up, int down)
 		pixel_put(img, x, y++, 0);
 }
 
-int	is_in_circle(int y, int ray, int x_to_center)
-{
-
-	if (x_to_center < 0)
-		x_to_center *= -1;
-	if (sqrt((double) (x_to_center * x_to_center) + (double)(W_HEIGHT / 2.0 - (double)(y)) * (double)(W_HEIGHT / 2.0 - (double)y)) < (double)(ray))
-		return (1);
-	return (0);
-}
-
-void	get_intersec(int x, int ray, int *up, int *down)
-{
-	int	y;
-
-	if (*up)
-		return ;
-	y = 0;
-	while (!is_in_circle(y, ray, 250 - x)
-			&& !is_in_circle(y, ray, 550 - x)
-			&& y < W_HEIGHT / 2)
-		y++;
-	if (y >= W_HEIGHT / 2)
-	{
-		*up = -1;
-		*down = -1;
-	}
-	else
-	{
-		*up = y;
-		*down = W_HEIGHT - y;
-	}
-}
-
-void	draw_black(t_image *img)
-{
-	int	x;
-	static int	up[W_LENGTH];
-	static int	down[W_LENGTH];	//Conserver un tableau d'up et down apres premier appel ? static ?
-//	static int	tab[W_HEIGHT][W_LENGTH] = {-1};
-	x = -1;
-	while (++x < W_LENGTH)
-	{
-		if (x < 51 || x > 749)
-			draw_black_line(img, x, -1, -1);
-		else
-		{
-			get_intersec(x, 200, up + x, down + x);
-			draw_black_line(img, x, up[x], down[x]);
-		}
-
-	}
-}
-
+//build_image.c
 
 void	build_image(t_image *img, t_data *data, t_player *player)
 {
@@ -198,10 +206,12 @@ void	build_image(t_image *img, t_data *data, t_player *player)
 		staminamina_heyhey(img, data);
 }
 
+//draw_line.c
+
 void	draw_line(t_image *img, t_data *data, int x, t_raycasting *ray)
 {
-	int	y;
-	int	x_img;
+	int		y;
+	int		x_img;
 	t_image	*texture;
 
 	texture = &data->img[ray->facing];

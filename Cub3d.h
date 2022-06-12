@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/12 14:42:41 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/12 17:01:08 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,26 @@
 # define PI 3.1415
 # define ZOOM_FORCE 5
 # define ROTSPEED 1.5 * PI / 18.0
+# define R_KEY 114
+# define W_KEY 119
+# define A_KEY 97
+# define Z_KEY 122
+# define P_KEY 112
+# define Q_KEY 113
+# define S_KEY 115
+# define D_KEY 100
+# define SPACE_BAR 32
+# define ESCAPE_KEY 65307
+# define SHIFT_KEY 65505
+# define UP_KEY 65362
+# define LEFT_KEY 65361
+# define RIGHT_KEY 65363
+# define DOWN_KEY 65364
+# define W_HEIGHT	600
+# define W_LENGTH	800
+# define CTRL_KEY 65507
+# define INITIAL_Z_SPEED 4
+# define JUMP_HEIGHT 0.44	//0.44 JOLIE VALEUR
 typedef int t_pixel;
 
 typedef struct s_raycasting
@@ -81,7 +101,6 @@ typedef struct s_image
 	int		endian;
 	int		height;
 	int		width;
-	t_pixel	**pix;
 }	t_image;
 
 typedef struct s_movements
@@ -113,7 +132,6 @@ typedef struct s_player
 	double	z_accel;
 	int	is_jumping;
 	double	ms;
-	//not sure
 }	t_player;
 
 typedef struct s_data
@@ -144,26 +162,6 @@ typedef struct s_data
 	double	time_diff;
 }	t_data;
 
-# define R_KEY 114
-# define W_KEY 119
-# define A_KEY 97
-# define Z_KEY 122
-# define P_KEY 112
-# define Q_KEY 113
-# define S_KEY 115
-# define D_KEY 100
-# define SPACE_BAR 32
-# define ESCAPE_KEY 65307
-# define SHIFT_KEY 65505
-# define UP_KEY 65362
-# define LEFT_KEY 65361
-# define RIGHT_KEY 65363
-# define DOWN_KEY 65364
-# define W_HEIGHT	600
-# define W_LENGTH	800
-# define CTRL_KEY 65507
-# define INITIAL_Z_SPEED 4
-# define JUMP_HEIGHT 0.44	//0.44 JOLIE VALEUR
 //# define INITIAL_Z_ACCEL -INITIAL_Z_SPEED*INITIAL_Z_SPEED;
 
 
