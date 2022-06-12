@@ -39,8 +39,8 @@
 #  define FOV 90.0
 # endif
 # define PI 3.1415
-# define ZOOM_FORCE 5
-# define ROTSPEED (1.5 * PI / 18.0)
+# define ZOOM_FORCE 3
+# define ROTSPEED 0.25
 # define R_KEY 114
 # define W_KEY 119
 # define A_KEY 97
@@ -59,8 +59,8 @@
 # define W_HEIGHT	600
 # define W_LENGTH	800
 # define CTRL_KEY 65507
-# define INITIAL_Z_SPEED 8
-# define JUMP_HEIGHT 5.8	//0.44 JOLIE VALEUR
+# define INITIAL_Z_SPEED 5
+# define JUMP_HEIGHT 0.44	//0.44 JOLIE VALEUR
 
 typedef int	t_pixel;
 

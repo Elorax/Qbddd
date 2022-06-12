@@ -241,7 +241,7 @@ void	draw_line(t_image *img, t_data *data, int x, t_raycasting *ray)
 	int	i = -1;
 	for (int h = 0; h < 10; h++)
 	{
-		printf("%d\n", ray->line[h].facing);
+	//	printf("%d\n", ray->line[h].facing);
 	}
 	while (++i < 10)
 	{
@@ -257,14 +257,22 @@ void	draw_line(t_image *img, t_data *data, int x, t_raycasting *ray)
 	y = 0;
 	while (y < ray->line[9].upper_wall && y < W_HEIGHT / 2)
 		pixel_put(img, x, y++, data->Ccolor);
+	while (y < ray->line[9].upper_wall && y < W_HEIGHT)
+		pixel_put(img, x, y++, data->Fcolor);
 	while (--i > 0)
 	{
-		printf("%d\n", i);
+	//	printf("%d\n", i);
 		while (y < ray->line[i].lower_wall && y < ray->line[i - 1].upper_wall && y < W_HEIGHT)
 		{
+			//printf("y : lower, upper\n%d : %d, %d\n", y, ray->line[i].lower_wall, ray->line[i].upper_wall);
+			if (texture[i]->width * (y - ray->line[i].upper_wall)
+					/ (ray->line[i].lower_wall - ray->line[i].upper_wall) < 0)
+				printf("SAMERE\n");
+			
 			pixel_put(img, x, y, get_color(texture[i], x_img[i],
 					texture[i]->width * (y - ray->line[i].upper_wall)
 					/ (ray->line[i].lower_wall - ray->line[i].upper_wall)));
+					//verifier lower != upper
 			y++;
 		}
 		while (y < ray->line[i - 1].upper_wall && y < W_HEIGHT)
@@ -284,6 +292,12 @@ void	draw_line(t_image *img, t_data *data, int x, t_raycasting *ray)
 	}
 	while (y < W_HEIGHT)
 		pixel_put(img, x, y++, data->Fcolor);
+
+
+
+
+
+
 	/*texture[2] = &data->img[ray->line[2].facing];
 	texture[1] = &data->img[ray->line[1].facing];
 	texture[0] = &data->img[ray->line[0].facing];

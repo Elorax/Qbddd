@@ -255,7 +255,6 @@ void	update_player_rotation(t_data *data)
 		rotate_left(data);
 }
 
-
 //close_window.c
 
 void	ft_mlx_close_game(t_data *data)

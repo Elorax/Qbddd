@@ -131,7 +131,7 @@ int	casting_ray(t_raycasting *ray, t_data *data, int nb_wall)
 
 
 		ray->line[nb_wall].facing = ray->facing;
-		printf("%d --> %d\n", ray->facing, ray->line[nb_wall].facing);
+//		printf("%d --> %d\n", ray->facing, ray->line[nb_wall].facing);
 		ray->dist_perp_wall = calcul_perpendiculary_dist(*ray);
 		//a changer
 		nb_hit++;
