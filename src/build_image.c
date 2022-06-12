@@ -86,8 +86,7 @@ void	fill_bar(t_image *img, t_data *data)
 	x = W_LENGTH / 2 - W_LENGTH / 12;
 	while (x < W_LENGTH / 2 + W_LENGTH / 12)
 	{
-	//	printf("%d > %d\n", data->player->stamina / (W_LENGTH / 6), x - (W_LENGTH / 2 - W_LENGTH / 12));
-		if (data->player->stamina * 71 / (W_LENGTH / 3) > x - (W_LENGTH / 2 - W_LENGTH / 12))
+		if (W_LENGTH * 5 / 12 + ((W_LENGTH / 6) * data->player->stamina) / 500.0 > x)
 		{
 			y = W_HEIGHT / 100 * 90 + 5;
 			while (y < W_HEIGHT / 100 * 95)
@@ -103,36 +102,9 @@ void	fill_bar(t_image *img, t_data *data)
 
 void	staminamina_heyhey(t_image *img, t_data *data)
 {
-	/*int	y;
-	int	x;*/
-
-
 	draw_bar_1(img, data);
 	draw_bar_2(img, data);
 	fill_bar(img, data);
-	/*for (y = 500; y < 505; y++)
-		for (x = 345; x < 455; x++)
-	for (y = 550; y < 555; y++)
-		for (x = 345; x < 455; x++)*/
-/*	for (x = 345; x < 350; x++)
-		for (y = 500; y < 550; y++)
-	for (x = 450; x < 455; x++)
-		for (y = 500; y < 550; y++)*/
-
-
-	/*for(x = 350; x < 450; x++)
-	{
-		if (data->player->stamina / 5 > x - 350)
-		{
-			for (y = 505; y < 550; y++)
-			{
-				pixel_put(img, x, y, 0xFFFF00 / (1 + !data->player->can_sprint));
-
-			}
-		}
-		else
-			break;
-	}*/
 }
 
 void	draw_black_line(t_image *img, int x, int up, int down)
@@ -162,6 +134,8 @@ void	get_intersec(int x, int ray, int *up, int *down)
 {
 	int	y;
 
+	if (*up)
+		return ;
 	y = 0;
 	while (!is_in_circle(y, ray, 250 - x)
 			&& !is_in_circle(y, ray, 550 - x)
@@ -182,8 +156,9 @@ void	get_intersec(int x, int ray, int *up, int *down)
 void	draw_black(t_image *img)
 {
 	int	x;
-	int	up;
-	int	down;	//Conserver un tableau d'up et down apres premier appel ? static ?
+	static int	up[W_LENGTH];
+	static int	down[W_LENGTH];	//Conserver un tableau d'up et down apres premier appel ? static ?
+//	static int	tab[W_HEIGHT][W_LENGTH] = {-1};
 	x = -1;
 	while (++x < W_LENGTH)
 	{
@@ -191,8 +166,8 @@ void	draw_black(t_image *img)
 			draw_black_line(img, x, -1, -1);
 		else
 		{
-			get_intersec(x, 200, &up, &down);
-			draw_black_line(img, x, up, down);
+			get_intersec(x, 200, up + x, down + x);
+			draw_black_line(img, x, up[x], down[x]);
 		}
 
 	}

@@ -18,23 +18,18 @@ int	init_images(t_data *data, t_image *img)
 			&img[0].width, &img[0].height);
 	if (img[0].img)
 		img[0].addr = mlx_get_data_addr(img[0].img, &img[0].bpp, &img[0].line_length, &img[0].endian);
-
 	img[1].img = mlx_xpm_file_to_image(data->mlx, data->path_south,
 			&img[1].width, &img[1].height);
 	if (img[1].img)
 		img[1].addr = mlx_get_data_addr(img[1].img, &img[1].bpp, &img[1].line_length, &img[1].endian);
-
 	img[2].img = mlx_xpm_file_to_image(data->mlx, data->path_east,
 			&img[2].width, &img[2].height);
 	if (img[2].img)
 		img[2].addr = mlx_get_data_addr(img[2].img, &img[2].bpp, &img[2].line_length, &img[2].endian);
-
 	img[3].img = mlx_xpm_file_to_image(data->mlx, data->path_west,
 			&img[3].width, &img[3].height);
 	if (img[3].img)
 		img[3].addr = mlx_get_data_addr(img[3].img, &img[3].bpp, &img[3].line_length, &img[3].endian);
-	
-	//img[4].img = mlx_xpm_file_to_image(data->mlx, "./text/messpage.xpm",
 	img[4].img = mlx_xpm_file_to_image(data->mlx, "./text/message.xpm",
 			&img[4].width, &img[4].height);
 	if (img[4].img)

@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/10 15:22:01 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/12 14:42:41 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,8 @@ typedef struct s_data
 # define W_HEIGHT	600
 # define W_LENGTH	800
 # define CTRL_KEY 65507
-# define INITIAL_Z_SPEED 8.2
-# define JUMP_HEIGHT 0.88	//0.44 JOLIE VALEUR
+# define INITIAL_Z_SPEED 4
+# define JUMP_HEIGHT 0.44	//0.44 JOLIE VALEUR
 //# define INITIAL_Z_ACCEL -INITIAL_Z_SPEED*INITIAL_Z_SPEED;
 
 
