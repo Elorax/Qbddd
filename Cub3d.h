@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/12 17:01:08 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/12 22:13:14 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,21 @@
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 # define DOWN_KEY 65364
-# define W_HEIGHT	700
-# define W_LENGTH	1800
+# define W_HEIGHT	600
+# define W_LENGTH	800
 # define CTRL_KEY 65507
-# define INITIAL_Z_SPEED 4
-# define JUMP_HEIGHT 0.44	//0.44 JOLIE VALEUR
+# define INITIAL_Z_SPEED 8
+# define JUMP_HEIGHT 5.8	//0.44 JOLIE VALEUR
 
 typedef int	t_pixel;
+
+typedef struct	s_line
+{
+	int		facing;
+	int		upper_wall;
+	int		lower_wall;
+	double	x_pix_wall;
+}	t_line;
 
 typedef struct s_raycasting
 {
@@ -84,6 +92,8 @@ typedef struct s_raycasting
 	int		upper_wall;	//lowerWall
 	int		lower_wall;	//upperWall
 	double	x_pix_wall;	//wallX
+	t_line	line[10];	//3 a changer maybe
+	int		nb_wall;
 }	t_raycasting;
 
 typedef struct s_image
@@ -142,6 +152,7 @@ typedef struct s_data
 	int			begin_map;
 	int			end_map;
 	int			map_size;
+	int			map_length;
 	void		*mlx;
 	void		*win;
 	t_image		img[5];
@@ -173,9 +184,9 @@ void	draw_black_line(t_image *img, int x, int up, int down);
 void	init_raycasting(int x, t_raycasting *ray, t_player *player);
 void	calcul_dist(t_raycasting *ray);
 void	calcul_initial_dist(t_raycasting *ray, t_player *player);
-void	casting_ray(t_raycasting *ray, t_data *data);
+int		casting_ray(t_raycasting *ray, t_data *data, int nb_wall);
 double	calcul_perpendiculary_dist(t_raycasting ray);
-void	calcul_wall_drawing(t_raycasting *ray, t_player *player);
+void	calcul_wall_drawing(t_raycasting *ray, t_player *player, int nb_wall);
 
 void	init_movements(t_movements *move);
 void	reading(char *av, t_data *data, t_player *player, t_movements *move);

@@ -34,7 +34,7 @@ void	reading(char *av,
 	read_map_parameters(data);
 	count_map_size(data);
 	read_map(data, av);
-	print_data(*data);
+	//print_data(*data);
 	close(data->fd);
 	if (check_map(data->map, data))
 		printf("Map safe, skip voting\n");
@@ -72,5 +72,6 @@ int	main(int ac, char **av)
 	if (is_arg_valid(ac, av) == FALSE)
 		return (EXIT_FAILURE);
 	reading(av[1], &data, &player, &move);
+//	return (0);
 	create_window(&data, av[1]);
 }

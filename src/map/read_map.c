@@ -49,9 +49,9 @@ int	check_map(char **map, t_data *data)
 		{
 			if (ft_strchr("0NSEW", map[i][j]))
 				if (!check_around_zero(map, i, j))
-					return (FALSE);
+					return (printf("%d%d\n", i, j), FALSE);
 			if (!ft_strchr("20NSEW1 ", map[i][j]))
-				return (FALSE);
+					return (printf("%d%d\n", i, j), FALSE);
 			if (ft_strchr("NSEW", map[i][j]))
 			{
 				nb_player++;
@@ -60,6 +60,7 @@ int	check_map(char **map, t_data *data)
 			j++;
 		}
 	}
+//	printf("%d ??\n", nb_player);
 	return (nb_player == 1);
 }
 
@@ -115,6 +116,55 @@ void	count_map_size(t_data *data)
 	close(data->fd);
 }
 
+char	*insert(char *str, char c, int idx, int nb_insert)
+{
+	char	*dest;
+
+	if (idx > (int)ft_strlen(str))
+		return (str);
+	dest = malloc(ft_strlen(str) + nb_insert);
+	if (!dest)
+	{
+		free(str);
+		return (NULL);
+	}
+	int	i;
+	i = 0;
+	int	j;
+	j = 0;
+	while (str[i] && i < idx)
+	{
+		dest[i] = str[i];
+		i++;
+	}
+	while (j < nb_insert)
+		dest[i + j++] = c;
+	while (str[i])
+	{
+			dest[i + j] = str[i];
+			i++;
+	}
+	free(str);
+//	printf("%s\n", dest);
+	return (dest);
+}
+
+void	fill_with_spaces(char **map, t_data *data)
+{
+	int	i;
+	i = 0;
+	while (map[i])
+	{
+		if ((int)ft_strlen(map[i]) - 1 < data->map_length)
+		{
+			map[i] = insert(map[i], ' ', ft_strlen(map[i]) - 1, 10);
+			printf("lala%s", map[i]);
+		}
+
+		i++;
+	}
+}
+
 void	read_map(t_data *data, char *path)
 {
 	int	i;
@@ -130,12 +180,19 @@ void	read_map(t_data *data, char *path)
 	if (!data->map)
 		exit((free_data(data), printf("MALLOC C'EST A CHIER\n"), EXIT_FAILURE));
 	i = -1;
+	data->map_length = 0;
 	while (++i < data->map_size)
 	{
 		data->map[i] = get_next_line(data->fd);
+	//	printf("line : %s", data->map[i]);
 		if (!data->map[i])
 			printf("Ooopsiiiee\n");
+		if (data->map_length < (int)ft_strlen(data->map[i]) - 1)
+			data->map_length = ft_strlen(data->map[i]) - 1;
+	//	printf("size : %d\n", data->map_length);
 	}
+	//printf("size : %d\n", data->map_length);
 	data->map[data->map_size] = NULL;
+	fill_with_spaces(data->map, data);
 	close(data->fd);
 }
