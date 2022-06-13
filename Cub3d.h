@@ -29,6 +29,8 @@
 # define ERROR_FUCK_MALLOC -3
 # define ERROR_PARAMETERS  -4
 
+# include <X11/X.h>
+
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
@@ -41,6 +43,11 @@
 # define PI 3.1415
 # define ZOOM_FORCE 3
 # define ROTSPEED 0.25
+
+
+# define RIGHT_CLICK 3
+# define LEFT_CLICK 1
+# define MIDDLE_CLICK 2
 # define R_KEY 114
 # define W_KEY 119
 # define A_KEY 97
@@ -237,5 +244,7 @@ void	ft_mlx_close_croix_rouge_de_ses_morts(t_data *data);
 
 int	key_press(int keycode, t_data *data);
 int		key_release(int keycode, t_data *data);
+int	mouse_press(int keycode, t_data *data);
+int	mouse_release(int keycode, t_data *data);
 
 #endif

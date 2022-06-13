@@ -11,6 +11,7 @@ SRCS		=	main.c								\
 				src/map/utils.c						\
 				src/init_images.c					\
 				src/key_hook.c						\
+				src/mouse_hook.c					\
 				src/test_get_addr.c					\
 				src/build_image.c					\
 				src/init_raycasting.c				\

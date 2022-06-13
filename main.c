@@ -59,6 +59,9 @@ void	create_window(t_data *data, char *av)
 	mlx_hook(data->win, 17, 0, exit_hook, data);
 	mlx_hook(data->win, 02, (1L << 1), key_press, data);
 	mlx_hook(data->win, 03, (1L << 0), key_release, data);
+	mlx_hook(data->win, 04, (1L << 3), mouse_press, data);
+	mlx_hook(data->win, 05, (1L << 2), mouse_release, data);
+
 	mlx_do_key_autorepeatoff(data->mlx);
 	mlx_loop(data->mlx);
 }
@@ -72,6 +75,5 @@ int	main(int ac, char **av)
 	if (is_arg_valid(ac, av) == FALSE)
 		return (EXIT_FAILURE);
 	reading(av[1], &data, &player, &move);
-//	return (0);
 	create_window(&data, av[1]);
 }
