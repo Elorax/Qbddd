@@ -107,3 +107,4 @@ int	draw_walls(t_data *data, t_raycasting *ray, t_image **texture, int *x_img)
 	}
 	return (y);
 }
+
