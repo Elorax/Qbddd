@@ -6,15 +6,13 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 16:30:58 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/12 16:11:31 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/13 03:06:30 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3d.h"
 
-
 //key_hook.c
-
 
 int	exit_hook(t_data *data)
 {
@@ -43,10 +41,8 @@ int	key_press(int keycode, t_data *data)
 		data->move->try_move_y++;
 	else if (keycode == A_KEY || keycode == D_KEY)
 		data->move->try_move_x += 1 - 2 * (keycode == A_KEY);
-	else if (keycode == LEFT_KEY)
-		data->move->rotate--;
-	else if (keycode == RIGHT_KEY)
-		data->move->rotate++;
+	else if (keycode == LEFT_KEY || keycode == RIGHT_KEY)
+		data->move->rotate += 1 - 2 * (keycode == LEFT_KEY);
 	else if (keycode == SHIFT_KEY)
 		data->player->try_sprint = 1;
 	else if (keycode == CTRL_KEY)

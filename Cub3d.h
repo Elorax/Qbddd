@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/12 22:13:14 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/13 03:05:21 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@
 # define W_HEIGHT	600
 # define W_LENGTH	800
 # define CTRL_KEY 65507
-# define INITIAL_Z_SPEED 5
-# define JUMP_HEIGHT 0.44	//0.44 JOLIE VALEUR
+# define INITIAL_Z_SPEED 42.42
+# define JUMP_HEIGHT 4.69	//0.44 JOLIE VALEUR
 
 typedef int	t_pixel;
 
@@ -184,7 +184,7 @@ void	draw_black_line(t_image *img, int x, int up, int down);
 void	init_raycasting(int x, t_raycasting *ray, t_player *player);
 void	calcul_dist(t_raycasting *ray);
 void	calcul_initial_dist(t_raycasting *ray, t_player *player);
-int		casting_ray(t_raycasting *ray, t_data *data, int nb_wall);
+void	casting_ray(t_raycasting *ray, t_data *data, int nb_wall);
 double	calcul_perpendiculary_dist(t_raycasting ray);
 void	calcul_wall_drawing(t_raycasting *ray, t_player *player, int nb_wall);
 
@@ -227,7 +227,7 @@ void	manage_movement(t_data *data, int keycode);
 void	ft_mlx_close_game(t_data *data);
 void	ft_mlx_close_croix_rouge_de_ses_morts(t_data *data);
 
-int		key_press(int keycode, t_data *data);
+int	key_press(int keycode, t_data *data);
 int		key_release(int keycode, t_data *data);
 
 #endif

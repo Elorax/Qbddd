@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:06:22 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/12 16:15:09 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/13 03:09:10 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_map(char **map, t_data *data)
 				if (!check_around_zero(map, i, j))
 					return (printf("%d%d\n", i, j), FALSE);
 			if (!ft_strchr("20NSEW1 ", map[i][j]))
-					return (printf("%d%d\n", i, j), FALSE);
+				return (printf("%d%d\n", i, j), FALSE);
 			if (ft_strchr("NSEW", map[i][j]))
 			{
 				nb_player++;
@@ -60,7 +60,6 @@ int	check_map(char **map, t_data *data)
 			j++;
 		}
 	}
-//	printf("%d ??\n", nb_player);
 	return (nb_player == 1);
 }
 
@@ -119,6 +118,8 @@ void	count_map_size(t_data *data)
 char	*insert(char *str, char c, int idx, int nb_insert)
 {
 	char	*dest;
+	int		i;
+	int		j;
 
 	if (idx > (int)ft_strlen(str))
 		return (str);
@@ -128,15 +129,10 @@ char	*insert(char *str, char c, int idx, int nb_insert)
 		free(str);
 		return (NULL);
 	}
-	int	i;
-	i = 0;
-	int	j;
+	i = -1;
 	j = 0;
-	while (str[i] && i < idx)
-	{
+	while (str[++i] && i <= idx)
 		dest[i] = str[i];
-		i++;
-	}
 	while (j < nb_insert)
 		dest[i + j++] = c;
 	while (str[i])
@@ -145,13 +141,13 @@ char	*insert(char *str, char c, int idx, int nb_insert)
 			i++;
 	}
 	free(str);
-//	printf("%s\n", dest);
 	return (dest);
 }
 
 void	fill_with_spaces(char **map, t_data *data)
 {
 	int	i;
+
 	i = 0;
 	while (map[i])
 	{
@@ -160,7 +156,6 @@ void	fill_with_spaces(char **map, t_data *data)
 			map[i] = insert(map[i], ' ', ft_strlen(map[i]) - 1, 10);
 			printf("lala%s", map[i]);
 		}
-
 		i++;
 	}
 }
@@ -184,14 +179,11 @@ void	read_map(t_data *data, char *path)
 	while (++i < data->map_size)
 	{
 		data->map[i] = get_next_line(data->fd);
-	//	printf("line : %s", data->map[i]);
 		if (!data->map[i])
 			printf("Ooopsiiiee\n");
 		if (data->map_length < (int)ft_strlen(data->map[i]) - 1)
 			data->map_length = ft_strlen(data->map[i]) - 1;
-	//	printf("size : %d\n", data->map_length);
 	}
-	//printf("size : %d\n", data->map_length);
 	data->map[data->map_size] = NULL;
 	fill_with_spaces(data->map, data);
 	close(data->fd);
