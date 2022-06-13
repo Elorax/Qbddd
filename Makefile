@@ -13,7 +13,16 @@ SRCS		=	main.c								\
 				src/key_hook.c						\
 				src/test_get_addr.c					\
 				src/build_image.c					\
-				src/init_raycasting.c
+				src/init_raycasting.c				\
+				src/stamina_display.c				\
+				src/calculs.c						\
+				src/draw_line.c						\
+				src/draw_line_utils.c				\
+				src/update_player.c					\
+				src/update_player_utils.c			\
+				src/close_window.c					\
+				src/i_m_firing_my_raaaayyy.c		\
+				src/calcul_dist.c					
 
 OBJS		=	$(SRCS:.c=.o)
 

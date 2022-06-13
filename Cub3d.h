@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/13 03:05:21 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/13 14:18:31 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,12 @@ void	update_player_direction(t_data *data);
 void	update_player_rotation(t_data *data);
 void	draw_black_line(t_image *img, int x, int up, int down);
 
+
+void	draw_black(t_image *img);
+void	staminamina_heyhey(t_image *img, t_data *data);
+int		init_draw_line(t_data *d, t_raycasting *ray, t_image **img, int *x_img);
+int		draw_walls(t_data *data, t_raycasting *ray, t_image **img, int *x_img);
+
 //raycasting
 void	init_raycasting(int x, t_raycasting *ray, t_player *player);
 void	calcul_dist(t_raycasting *ray);
@@ -187,6 +193,8 @@ void	calcul_initial_dist(t_raycasting *ray, t_player *player);
 void	casting_ray(t_raycasting *ray, t_data *data, int nb_wall);
 double	calcul_perpendiculary_dist(t_raycasting ray);
 void	calcul_wall_drawing(t_raycasting *ray, t_player *player, int nb_wall);
+
+void	get_intersec(int x, int ray, int *up, int *down);
 
 void	init_movements(t_movements *move);
 void	reading(char *av, t_data *data, t_player *player, t_movements *move);
