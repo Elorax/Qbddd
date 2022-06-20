@@ -56,42 +56,55 @@ void	update_player_x(t_data *data)
 	}
 }
 
-void	rotate_right(t_data *data)
+void	rotate_right(t_data *data, int diff)
 {
 	double	tmp;
 
 	tmp = data->player->lookingX;
-	data->player->lookingX = data->player->lookingX * cos(ROTSPEED / 10)
-		- data->player->lookingY * sin(ROTSPEED / 10);
-	data->player->lookingY = tmp * sin(ROTSPEED / 10)
-		+ data->player->lookingY * cos(ROTSPEED / 10);
+	data->player->lookingX = data->player->lookingX * cos((ROTSPEED / 10) * diff)
+		- data->player->lookingY * sin((ROTSPEED / 10) * diff);
+	data->player->lookingY = tmp * sin((ROTSPEED / 10) * diff)
+		+ data->player->lookingY * cos((ROTSPEED / 10) * diff);
 	tmp = data->player->planeX;
-	data->player->planeX = tmp * cos(ROTSPEED / 10)
-		- data->player->planeY * sin(ROTSPEED / 10);
-	data->player->planeY = tmp * sin(ROTSPEED / 10)
-		+ data->player->planeY * cos(ROTSPEED / 10);
+	data->player->planeX = tmp * cos((ROTSPEED / 10) * diff)
+		- data->player->planeY * sin((ROTSPEED / 10) * diff);
+	data->player->planeY = tmp * sin((ROTSPEED / 10) * diff)
+		+ data->player->planeY * cos((ROTSPEED / 10) * diff);
 }
 
-void	rotate_left(t_data *data)
+void	rotate_left(t_data *data, int diff)
 {
 	double	tmp;
 
 	tmp = data->player->lookingX;
-	data->player->lookingX = data->player->lookingX * cos(-ROTSPEED / 10)
-		- data->player->lookingY * sin(-ROTSPEED / 10);
-	data->player->lookingY = tmp * sin(-ROTSPEED / 10)
-		+ data->player->lookingY * cos(-ROTSPEED / 10);
+	data->player->lookingX = data->player->lookingX * cos(-(ROTSPEED / 10) * diff)
+		- data->player->lookingY * sin(-(ROTSPEED / 10) * diff);
+	data->player->lookingY = tmp * sin(-(ROTSPEED / 10) * diff)
+		+ data->player->lookingY * cos(-(ROTSPEED / 10) * diff);
 	tmp = data->player->planeX;
-	data->player->planeX = tmp * cos(-ROTSPEED / 10)
-		- data->player->planeY * sin(-ROTSPEED / 10);
-	data->player->planeY = tmp * sin(-ROTSPEED / 10)
-		+ data->player->planeY * cos(-ROTSPEED / 10);
+	data->player->planeX = tmp * cos(-(ROTSPEED / 10) * diff)
+		- data->player->planeY * sin(-(ROTSPEED / 10) * diff);
+	data->player->planeY = tmp * sin(-(ROTSPEED / 10) * diff)
+		+ data->player->planeY * cos(-(ROTSPEED / 10) * diff);
 }
 
 void	update_player_rotation(t_data *data)
 {
-	if (data->move->rotate == 1)
-		rotate_right(data);
-	else if (data->move->rotate == -1)
-		rotate_left(data);
+	if (!data->mouse_pressed)
+	{
+		if (data->move->rotate == 1)
+			rotate_right(data, 1);
+		else if (data->move->rotate == -1)
+			rotate_left(data, 1);
+	}
+	else
+	{
+		if (data->diff_x > 0)
+		{
+			rotate_left(data, data->diff_x);
+		}	
+		else if (data->diff_x < 0)
+			rotate_right(data, -data->diff_x);
+
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:04:41 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/13 14:18:31 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:35:11 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,12 @@ typedef struct s_player
 typedef struct s_data
 {
 	int			fd;
+	int			diff_x;
+	int			mouse_pressed;
+	int			mouse_x;
+	int			mouse_y;
+	int			mouse_initial_x;
+	int			mouse_initial_y;
 	char		**map;
 	char		*path_north;
 	char		*path_south;
@@ -192,6 +198,9 @@ void	draw_black(t_image *img);
 void	staminamina_heyhey(t_image *img, t_data *data);
 int		init_draw_line(t_data *d, t_raycasting *ray, t_image **img, int *x_img);
 int		draw_walls(t_data *data, t_raycasting *ray, t_image **img, int *x_img);
+
+void	set_mouse_position(t_data *data, int x, int y);
+
 
 //raycasting
 void	init_raycasting(int x, t_raycasting *ray, t_player *player);
@@ -244,7 +253,7 @@ void	ft_mlx_close_croix_rouge_de_ses_morts(t_data *data);
 
 int	key_press(int keycode, t_data *data);
 int		key_release(int keycode, t_data *data);
-int	mouse_press(int keycode, t_data *data);
-int	mouse_release(int keycode, t_data *data);
+int	mouse_press(int keycode, int x, int y, t_data *data);
+int	mouse_release(int keycode, int x, int y, t_data *data);
 
 #endif

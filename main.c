@@ -74,6 +74,11 @@ int	main(int ac, char **av)
 
 	if (is_arg_valid(ac, av) == FALSE)
 		return (EXIT_FAILURE);
+	data.mouse_initial_x = 0;
+	data.mouse_initial_y = 0;
+	data.mouse_pressed = 0;
+	data.mouse_x = 0;
+	data.mouse_y = 0;
 	reading(av[1], &data, &player, &move);
 	create_window(&data, av[1]);
 }

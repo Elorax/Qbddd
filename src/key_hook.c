@@ -22,6 +22,12 @@ int	exit_hook(t_data *data)
 
 int	handle_no_event(t_data *data)
 {
+	if (data->mouse_pressed)
+	{
+		mlx_mouse_get_pos(data->mlx, data->win, &data->mouse_x, &data->mouse_y);
+		data->diff_x = data->mouse_initial_x - data->mouse_x;
+		mlx_mouse_move(data->mlx, data->win, data->mouse_initial_x, data->mouse_initial_y);
+	}
 	if (data->player->is_jumping == 0)
 		update_movements(data);
 	update_stamina(data);

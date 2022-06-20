@@ -6,28 +6,33 @@
 /*   By: abiersoh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 16:30:58 by abiersoh          #+#    #+#             */
-/*   Updated: 2022/06/13 14:30:34 by abiersoh         ###   ########.fr       */
+/*   Updated: 2022/06/20 08:29:29 by abiersoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Cub3d.h"
 
-int	mouse_press(int keycode, t_data *data)
+int	mouse_press(int keycode, int x, int y, t_data *data)
 {
-	int	x;
-	int	y;
 	printf("pressing %d\n", keycode);
 	if (keycode == RIGHT_CLICK)
-		mlx_mouse_get_pos(data->mlx, data->win, &x, &y);
-	printf("%d, %d\n", x, y);
+	{
+		data->mouse_initial_x = x;
+		data->mouse_initial_y = y;
+		data->mouse_pressed = 1;
+		printf("pressed at x, y : %d, %d\n", x, y);
+		mlx_mouse_hide(data->mlx, data->win);
+	}
 	return (0);
 }
 
-int	mouse_release(int keycode, t_data *data)
+int	mouse_release(int keycode, int x, int y, t_data *data)
 {
-	printf("releasing %d\n", keycode);
-	(void)data;
 	if (keycode == RIGHT_CLICK)
+	{
+		printf("released at x, y : %d, %d\n", x, y);
 		mlx_mouse_show(data->mlx, data->win);
+		data->mouse_pressed = 0;
+	}
 	return (0);
 }

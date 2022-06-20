@@ -35,8 +35,11 @@ void	update_stamina(t_data *data)
 
 void	update_movements(t_data *data)
 {
+	if (data->mouse_pressed)
+		data->move->move_x = data->move->try_move_x + data->move->rotate;
+	else
+		data->move->move_x = data->move->try_move_x;
 	data->move->move_y = data->move->try_move_y;
-	data->move->move_x = data->move->try_move_x;
 	data->player->sprint = data->player->try_sprint;
 	if (!data->move->move_y && !data->move->move_x)
 		data->player->sprint = 0;
