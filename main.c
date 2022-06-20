@@ -77,6 +77,7 @@ int	main(int ac, char **av)
 	data.mouse_initial_x = 0;
 	data.mouse_initial_y = 0;
 	data.mouse_pressed = 0;
+	data.left_pressed = 0;
 	data.mouse_x = 0;
 	data.mouse_y = 0;
 	reading(av[1], &data, &player, &move);

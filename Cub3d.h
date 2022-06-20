@@ -150,6 +150,7 @@ typedef struct s_data
 	int			fd;
 	int			diff_x;
 	int			mouse_pressed;
+	int			left_pressed;
 	int			mouse_x;
 	int			mouse_y;
 	int			mouse_initial_x;
