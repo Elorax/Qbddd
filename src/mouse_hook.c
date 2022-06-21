@@ -19,9 +19,11 @@ int	mouse_press(int keycode, int x, int y, t_data *data)
 	{
 		data->mouse_initial_x = x;
 		data->mouse_initial_y = y;
+		data->mouse_prec_x = 400;
 		data->mouse_pressed = 1;
 		printf("pressed at x, y : %d, %d\n", x, y);
 		mlx_mouse_hide(data->mlx, data->win);
+		mlx_mouse_move(data->mlx, data->win, 400, 300);
 	}
 	else if (keycode == LEFT_CLICK)
 	{
@@ -37,6 +39,7 @@ int	mouse_release(int keycode, int x, int y, t_data *data)
 	if (keycode == RIGHT_CLICK)
 	{
 		printf("released at x, y : %d, %d\n", x, y);
+		mlx_mouse_move(data->mlx, data->win, data->mouse_initial_x, data->mouse_initial_y);
 		mlx_mouse_show(data->mlx, data->win);
 		data->mouse_pressed = 0;
 		if (data->left_pressed)

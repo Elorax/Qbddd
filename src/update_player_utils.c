@@ -93,9 +93,9 @@ void	update_player_rotation(t_data *data)
 	if (!data->mouse_pressed)
 	{
 		if (data->move->rotate == 1)
-			rotate_right(data, 1);
+			rotate_right(data, 3);
 		else if (data->move->rotate == -1)
-			rotate_left(data, 1);
+			rotate_left(data, 3);
 	}
 	else
 	{

@@ -25,8 +25,13 @@ int	handle_no_event(t_data *data)
 	if (data->mouse_pressed)
 	{
 		mlx_mouse_get_pos(data->mlx, data->win, &data->mouse_x, &data->mouse_y);
-		data->diff_x = data->mouse_initial_x - data->mouse_x;
-		mlx_mouse_move(data->mlx, data->win, data->mouse_initial_x, data->mouse_initial_y);
+		data->diff_x = data->mouse_prec_x - data->mouse_x;
+		data->mouse_prec_x = data->mouse_x;
+		if (data->mouse_x < 50 || data->mouse_x > 750)
+		{
+			mlx_mouse_move(data->mlx, data->win, 400, 300);
+			data->mouse_prec_x = 400;
+		}
 	}
 	if (data->player->is_jumping == 0)
 		update_movements(data);

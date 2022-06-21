@@ -42,7 +42,7 @@
 # endif
 # define PI 3.1415
 # define ZOOM_FORCE 3
-# define ROTSPEED 0.25
+# define ROTSPEED 0.08
 
 
 # define RIGHT_CLICK 3
@@ -155,6 +155,7 @@ typedef struct s_data
 	int			mouse_y;
 	int			mouse_initial_x;
 	int			mouse_initial_y;
+	int			mouse_prec_x;
 	char		**map;
 	char		*path_north;
 	char		*path_south;
