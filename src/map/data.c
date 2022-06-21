@@ -36,6 +36,12 @@ void	free_data(t_data *data)
 		mlx_destroy_display(data->mlx);
 	ft_freesplit(data->map);
 	free(data->mlx);
+	free(data->img[0].path);
+	free(data->img[1].path);
+	free(data->img[2].path);
+	free(data->img[3].path);
+	free(data->img[4].path);
+
 	return ;
 }
 

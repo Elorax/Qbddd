@@ -80,6 +80,11 @@ int	main(int ac, char **av)
 	data.left_pressed = 0;
 	data.mouse_x = 0;
 	data.mouse_y = 0;
+	data.img[0].path = NULL;
+	data.img[1].path = NULL;
+	data.img[2].path = NULL;
+	data.img[3].path = NULL;
+	data.img[4].path = NULL;
 	reading(av[1], &data, &player, &move);
 	create_window(&data, av[1]);
 }

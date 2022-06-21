@@ -107,6 +107,7 @@ typedef struct s_image
 {
 	void	*img;
 	char	*addr;
+	char	*path;
 	int		bpp;
 	int		line_length;
 	int		endian;

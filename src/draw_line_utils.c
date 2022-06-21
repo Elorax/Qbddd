@@ -58,6 +58,8 @@ int	init_draw_line(t_data *data, t_raycasting *ray,
 	while (++i < 10)
 	{
 		texture[i] = &data->img[ray->line[i].facing % 4];
+		if (data->player->zoom > 1 && !ft_strncmp(texture[i]->path, "./text/pokeball.xpm", 20))
+			texture[i] = &data->img[4];
 		x_img[i] = floor(ray->line[i].x_pix_wall * (double) texture[i]->width);
 		if (x_img[i] < 0)
 			x_img[i] = 0;

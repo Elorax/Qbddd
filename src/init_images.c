@@ -19,6 +19,7 @@ void	init_image(t_data *data, t_image *img, char *path)
 	if (img->img)
 		img->addr = mlx_get_data_addr(img->img, &img->bpp,
 				&img->line_length, &img->endian);
+	img->path = ft_strdup(path);
 }
 
 int	init_images(t_data *data, t_image *img)
@@ -27,7 +28,7 @@ int	init_images(t_data *data, t_image *img)
 	init_image(data, &img[1], data->path_south);
 	init_image(data, &img[2], data->path_east);
 	init_image(data, &img[3], data->path_west);
-	init_image(data, &img[4], "./text/message.xpm");
+	init_image(data, &img[4], "./text/pikapika.xpm");
 	return (img[0].img && img[1].img && img[2].img && img[3].img && img[4].img);
 }
 
