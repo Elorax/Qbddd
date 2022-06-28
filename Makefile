@@ -29,9 +29,9 @@ OBJS		=	$(SRCS:.c=.o)
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 
-NAME		=	Cube3d
+NAME		=	Cub3D
 
 %.o: %.c
 			$(CC) $(CFLAGS) -I /usr/include -Imlx_linux -c $< -o $@

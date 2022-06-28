@@ -74,14 +74,14 @@ void	read_map_parameters(t_data *data)
 	{
 		if (!is_line_valid(line, data))
 			exit((free_data(data), free(line),
-					printf("Error : Wrong informations\n"), EXIT_FAILURE));
+					printf("Error\nWrong informations\n"), EXIT_FAILURE));
 		data->nb_param += read_line(line, data);
 		free(line);
 		line = get_next_line(data->fd);
 		i++;
 	}
 	if (data->nb_param < 6)
-		exit((free_data(data), printf("Error : Wrong informations\n"),
+		exit((free_data(data), printf("Error\nWrong informations\n"),
 				EXIT_FAILURE));
 	while (line && line[0] == '\n')
 	{
@@ -108,7 +108,7 @@ void	count_map_size(t_data *data)
 	{
 		if (line[0] != '\n')
 			exit((free(line), free_data(data),
-					printf("Error : Non-void line after map\n"), 0));
+					printf("Error\nNon-void line after map\n"), 0));
 		free(line);
 		line = get_next_line(data->fd);
 	}
@@ -173,14 +173,14 @@ void	read_map(t_data *data, char *path)
 	data->map_size = data->end_map - data->begin_map + 1;
 	data->map = malloc(sizeof(char *) * (data->map_size + 1));
 	if (!data->map)
-		exit((free_data(data), printf("MALLOC C'EST A CHIER\n"), EXIT_FAILURE));
+		exit((free_data(data), printf("Error\nMALLOC C'EST A CHIER\n"), EXIT_FAILURE));
 	i = -1;
 	data->map_length = 0;
 	while (++i < data->map_size)
 	{
 		data->map[i] = get_next_line(data->fd);
 		if (!data->map[i])
-			printf("Ooopsiiiee\n");
+			printf("Error\nOoopsiiiee\n");
 		if (data->map_length < (int)ft_strlen(data->map[i]) - 1)
 			data->map_length = ft_strlen(data->map[i]) - 1;
 	}

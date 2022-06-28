@@ -90,7 +90,7 @@ void	rotate_left(t_data *data, int diff)
 
 void	update_player_rotation(t_data *data)
 {
-	if (!data->mouse_pressed)
+	if (!data->mouse_pressed && !data->left_pressed)
 	{
 		if (data->move->rotate == 1)
 			rotate_right(data, 3);
@@ -105,6 +105,5 @@ void	update_player_rotation(t_data *data)
 		}	
 		else if (data->diff_x < 0)
 			rotate_right(data, -data->diff_x);
-
 	}
 }

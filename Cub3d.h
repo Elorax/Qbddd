@@ -63,8 +63,8 @@
 # define LEFT_KEY 65361
 # define RIGHT_KEY 65363
 # define DOWN_KEY 65364
-# define W_HEIGHT	600
-# define W_LENGTH	800
+# define W_HEIGHT 900
+# define W_LENGTH 1200
 # define CTRL_KEY 65507
 # define INITIAL_Z_SPEED 42.42
 # define JUMP_HEIGHT 4.69	//0.44 JOLIE VALEUR

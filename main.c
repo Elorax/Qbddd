@@ -30,30 +30,31 @@ void	reading(char *av,
 	init_movements(data->move);
 	data->fd = open(av, O_RDONLY);
 	if (data->fd < 0)
-		exit((printf("Error : File descriptor invalid\n"), 0));
+		exit((printf("Error\nFile descriptor invalid\n"), 0));
 	read_map_parameters(data);
 	count_map_size(data);
 	read_map(data, av);
 	//print_data(*data);
 	close(data->fd);
 	if (check_map(data->map, data))
-		printf("Map safe, skip voting\n");
+		//printf("Map safe, skip voting\n");
+		;
 	else
-		exit((free_data(data), printf("This map is sus\n"), 0));
+		exit((free_data(data), printf("Error\nThis map is sus\n"), 0));
 }
 
 void	create_window(t_data *data, char *av)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
-		exit((free_data(data), printf("mlx init failed\n"), 0));
+		exit((free_data(data), printf("Error\nmlx init failed\n"), 0));
 	if (!init_images(data, data->img))
-		exit((free_data(data), printf("img not loaded\n"), 0));
+		exit((free_data(data), printf("Error\nimg not loaded\n"), 0));
 	if (!init_frames(data))
-		exit((free_data(data), printf("mlx_new_image FAILED MISERABLY\n"), 0));
+		exit((free_data(data), printf("Error\nmlx_new_image FAILED MISERABLY\n"), 0));
 	data->win = mlx_new_window(data->mlx, W_LENGTH, W_HEIGHT, av);
 	if (!data->win)
-		exit((free_data(data), printf("window creation failed\n"), 0));
+		exit((free_data(data), printf("Error\nwindow creation failed\n"), 0));
 	create_big(data);
 	mlx_loop_hook(data->mlx, handle_no_event, data);
 	mlx_hook(data->win, 17, 0, exit_hook, data);

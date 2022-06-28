@@ -58,8 +58,11 @@ void	update_jump(t_data *data)
 	{
 		data->player->height = 0;
 		data->player->is_jumping = 0;
-		data->player->dirY = data->player->lookingY;
-		data->player->dirX = data->player->lookingX;
+		if (!data->left_pressed || data->mouse_pressed)
+		{
+			data->player->dirY = data->player->lookingY;
+			data->player->dirX = data->player->lookingX;
+		}
 	}
 }
 

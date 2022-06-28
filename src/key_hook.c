@@ -22,7 +22,7 @@ int	exit_hook(t_data *data)
 
 int	handle_no_event(t_data *data)
 {
-	if (data->mouse_pressed)
+	if (data->mouse_pressed || data->left_pressed)
 	{
 		mlx_mouse_get_pos(data->mlx, data->win, &data->mouse_x, &data->mouse_y);
 		data->diff_x = data->mouse_prec_x - data->mouse_x;

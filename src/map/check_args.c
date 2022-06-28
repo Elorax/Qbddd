@@ -15,8 +15,8 @@
 int	is_arg_valid(int ac, char **av)
 {
 	if (ac != 2)
-		return (printf("Error : argument count not valid\n"), 0);
+		return (printf("Error\nargument count not valid\n"), 0);
 	if (ft_strlen(ft_strstr(av[1], ".cub")) != ft_strlen(".cub"))
-		return (printf("WRONG MAP NAME"), 0);
+		return (printf("Error\nWRONG MAP NAME"), 0);
 	return (1);
 }

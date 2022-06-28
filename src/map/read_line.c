@@ -19,10 +19,10 @@ int	read_color(char *line, t_data *data)
 	char	**tmp;
 
 	if (countchar(line, ',') != 2)
-		exit((free_data(data), printf("COULEUR A CHIER\n"), ERROR_BAD_COLOR));
+		exit((free_data(data), printf("Error\nCOULEUR A CHIER\n"), ERROR_BAD_COLOR));
 	tmp = formatting_split(line, ',', " ");
 	if (!tmp)
-		exit((free_data(data), printf("COULEUR A CHIER\n"), ERROR_BAD_COLOR));
+		exit((free_data(data), printf("Error\nCOULEUR A CHIER\n"), ERROR_BAD_COLOR));
 	i = -1;
 	res = 0;
 	while (++i < 3)
@@ -38,7 +38,7 @@ int	read_color(char *line, t_data *data)
 	if ((i == 3) && tmp[i] == NULL)
 		return (ft_freesplit(tmp), res);
 	exit((free_data(data), ft_freesplit(tmp),
-			printf("COULEUR A CHIER\n"), ERROR_BAD_COLOR));
+			printf("Error\nCOULEUR A CHIER\n"), ERROR_BAD_COLOR));
 }
 
 int	read_line(char *line, t_data *data)
